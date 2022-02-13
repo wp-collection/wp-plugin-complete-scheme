@@ -1,2 +1,2 @@
 # wp-plugin-complete-scheme
-coming soon
+documentation is coming soon
