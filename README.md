@@ -1,10 +1,11 @@
-# wp-plugin-complete-scheme
+
+Do you like this project? Good! Remember to encourage us in this: <b>click on the ★ above this page and follow</b>
 
 ---
 
-Under optimization plugin boilerplate/asset
-<br><br>
-Do you like this project? Good! Remember to encourage us in this: <b>click on the ★ above this page and follow</b>
+# wp-plugin-complete-scheme
+
+### Under optimization plugin boilerplate/asset
 
 ---
 
