@@ -10,7 +10,7 @@ However, it remains obvious that, to change everything, you will have to underst
 
 ## - main folders and files
 
-The asset includes [3 macro areas]([wp-plugin-complete-scheme/the-plugin-scheme/required at main · wordpress-projects-station/wp-plugin-complete-scheme · GitHub](https://github.com/wordpress-projects-station/wp-plugin-complete-scheme/tree/main/the-plugin-scheme/required)) equal to sub folder:
+The asset includes [3 macro areas](https://github.com/wordpress-projects-station/wp-plugin-complete-scheme/tree/main/the-plugin-scheme/required) equal to sub folder:
 
 - standard files to manage the plugin and its relative options
 - the section for managing and configuring gutenberg blocks and blocks categories
@@ -20,11 +20,11 @@ The asset includes [3 macro areas]([wp-plugin-complete-scheme/the-plugin-scheme/
 
 The files in the first area are the same as the *Flat*, we just changed a name and a little layout. Excluding the index, all files will in any case be enclosed in "required". For the plugin base, then ...
 
-- **./[index.php]([wp-plugin-complete-scheme/index.php at main · wordpress-projects-station/wp-plugin-complete-scheme · GitHub](https://github.com/wordpress-projects-station/wp-plugin-complete-scheme/blob/main/the-plugin-scheme/index.php))**
+- **./[index.php](https://github.com/wordpress-projects-station/wp-plugin-complete-scheme/blob/main/the-plugin-scheme/index.php)**
   It's the manager of asset. In this file we have a class that instantiates the 3 areas of the plugin by the wordpress hooks. It's easy to understand: the hook is in costructor and the file called have the "required" and the path in body.
 
-- ./required/**[admin-panels/index_admin_panel.php](https://github.com/wordpress-projects-station/wp-plugin-complete-scheme/tree/main/the-plugin-scheme/required/admin-panels)**
-  ./required/**[admin-panels/wpdblib.php](https://github.com/wordpress-projects-station/wp-plugin-complete-scheme/tree/main/the-plugin-scheme/required/admin-panels)**
+- ./required/**[admin-panels/index_admin_panel.php](https://github.com/wordpress-projects-station/wp-plugin-complete-scheme/tree/main/the-plugin-scheme/required/admin-panels)**<br>
+  ./required/**[admin-panels/wpdblib.php](https://github.com/wordpress-projects-station/wp-plugin-complete-scheme/tree/main/the-plugin-scheme/required/admin-panels)**<br>
   The first is the contents of admin page, whit the form for make your options.
   The second is required in "index_...", the first, and it's a little methods librarys for make a CRUD of wordpress database... in short: save and get all data. This first area manages what you see on the menu and the classic admin area. is the one you activate in the plugin page in wordpress. We advise you to study it better in the ultra mega simple version ... the [Flat-scheme](https://github.com/wordpress-projects-station/wp-plugin-flat-scheme) (which is identical, but easier).
 
