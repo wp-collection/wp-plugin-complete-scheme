@@ -1,2 +1,9 @@
 # wp-plugin-complete-scheme
-documentation is coming soon
+
+---
+
+Under optimization plugin boilerplate/asset
+
+---
+
+[**read the first documentation here**](https://github.com/wordpress-projects-station/wp-plugin-complete-scheme/tree/main/docs/wiki.en)
