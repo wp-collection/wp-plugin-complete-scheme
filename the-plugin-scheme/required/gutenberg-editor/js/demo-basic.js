@@ -9,6 +9,7 @@
 //: warning:    this action required gutenberg-blocks-init.js
 //: warning:    this action required gutenberg-blocks-prototyper.js
 
+
 recordblock(
 'the-plugin-scheme/demo-basic',{
 
@@ -18,11 +19,11 @@ recordblock(
 	description: 'A demo of simple editor text... see more inside the github repo.',
 
 	attributes: {
-		content: {
-			type: 'array',
-			source: 'children',
-			selector: 'h1',
+
+		demo_text: {
+			type: 'string',
 		},
+
 	},
 
 	edit: props => { return([
@@ -32,11 +33,10 @@ recordblock(
 			make('edit-texts',{
 
 				tagName: 'h1',
-				className: props.className,
 				allowedFormats: [ 'core/bold', 'core/italic' ],
 				placeholder: 'type anything here',
-				value: props.attributes.content,
-				onChange: refresh => { props.setAttributes( { content: refresh } ) },
+				value: props.attributes.demo_text,
+				onChange: refresh => { props.setAttributes( { demo_text: refresh } ) },
 
 			})
 
@@ -46,10 +46,10 @@ recordblock(
 
 	save: props => { return (
 
-		make('edit-texts-contents',{
+		make('edit-texts',{
 			saved:true,
 			tagName: 'h1',
-			value: props.attributes.content,
+			value: props.attributes.demo_text,
 		})
 
 	)},

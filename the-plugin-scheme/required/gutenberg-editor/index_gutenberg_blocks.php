@@ -28,13 +28,13 @@
     wp_enqueue_script( $basename.'-richcollection', $scriptpath.'gutenberg-richcollection.js', $depencies, $v );
 
     //: record all blocks maked
-    wp_enqueue_script( $basename.'-basic', $scriptpath.'demo-basic.js',null,$v );
-    wp_enqueue_script( $basename.'-combo', $scriptpath.'demo-combo.js',null,$v );
-    wp_enqueue_script( $basename.'-nesteds', $scriptpath.'demo-nesteds.js',null,$v );
-    wp_enqueue_script( $basename.'-inspector', $scriptpath.'demo-inspector.js',null,$v );
-    wp_enqueue_script( $basename.'-toolbarboxes', $scriptpath.'demo-toolbar-boxes.js',null,$v );
-    wp_enqueue_script( $basename.'-toolbartexts', $scriptpath.'demo-toolbar-texts.js',null,$v );
-    wp_enqueue_script( $basename.'-properties', $scriptpath.'demo-usingproperties.js',null,$v );
+    wp_enqueue_script( $basename.'-basic', $scriptpath.'demo-basic.js', $depencies,$v );
+    wp_enqueue_script( $basename.'-combo', $scriptpath.'demo-combo.js', $depencies,$v );
+    wp_enqueue_script( $basename.'-nesteds', $scriptpath.'demo-nesteds.js', $depencies,$v );
+    wp_enqueue_script( $basename.'-inspector', $scriptpath.'demo-inspector.js', $depencies,$v );
+    wp_enqueue_script( $basename.'-toolbarboxes', $scriptpath.'demo-toolbar-boxes.js', $depencies,$v );
+    wp_enqueue_script( $basename.'-toolbartexts', $scriptpath.'demo-toolbar-texts.js', $depencies,$v );
+    wp_enqueue_script( $basename.'-properties', $scriptpath.'demo-usingproperties.js', $depencies,$v );
 
     //: init css
     wp_enqueue_style( $basename.'-css-editorfix', $stylespath.'editorfix.css', null, $v );

@@ -1,6 +1,6 @@
 /*
 // GUTENBERG BLOCK
-// --------------------------
+// ========================--
 // - this file save a wysiwyg block
 // - a demo of all inspector parts
 */
@@ -13,10 +13,6 @@ recordblock(
     icon: 'superhero-alt',
     category: 'scheme-blocks',
     description: 'A set of repicable examples of all modded editor components.',
-    
-    attributes: {
-        content: {},
-    },
     
     edit: props => { return ([
 
@@ -46,7 +42,7 @@ recordblock(
                     message: 'Auto reversed colour!',
                 }),
 
-                make('----'),
+                make('===='),
                 
                 make('inspector-tab',{
                     label: '➜ this is a tab',
@@ -55,7 +51,7 @@ recordblock(
                     make('h4',{},"HI FROM SCHEMA!, THIS IS A DEMO TAB CONTENTS!")
                 ]),
 
-                make('----'),
+                make('===='),
 
                 make('inspector-card','my card header',[
                     make('p',{},'card contents 01'),
@@ -63,11 +59,11 @@ recordblock(
                     make('p',{},'card contents 03'),
                 ]),
 
-                make('----'),
+                make('===='),
 
                 make('inspector-banner',{src:'https://cldup.com/0BNcqkoMdq.jpg'}),
 
-                make('----'),
+                make('===='),
 
                 make('inspector-group --wide',[
 
@@ -81,7 +77,7 @@ recordblock(
 
                 ]),
 
-                make('- - -'),
+                make('----'),
 
                 make('inspector-group --wide',[
 
@@ -95,7 +91,7 @@ recordblock(
 
                 ]),
 
-                make('- - -'),
+                make('----'),
 
                 make('inspector-group --wide',[
 
@@ -109,7 +105,7 @@ recordblock(
 
                 ]),
 
-                make('----'),
+                make('===='),
 
                 make('inspector-group --wide',[
 
@@ -146,7 +142,7 @@ recordblock(
                         }),
                     ]),
 
-                    make('- - -'),
+                    make('----'),
 
                     make('p',{},'button "classic"'),
 
@@ -157,7 +153,7 @@ recordblock(
                         }),
                     ]),
 
-                    make('- - -'),
+                    make('----'),
 
                     make('p',{},'button "--featuredimage"'),
 
@@ -196,7 +192,7 @@ recordblock(
                     ]),
 
 
-                    make('----'),
+                    make('===='),
 
                     make('p',{},'button checkbox'),
 
@@ -208,7 +204,7 @@ recordblock(
                         }
                     }),
 
-                    make('- - -'),
+                    make('----'),
 
                     make('p',{},'button radiobox'),
 
@@ -224,7 +220,7 @@ recordblock(
                         }
                     }),
 
-                    make('- - -'),
+                    make('----'),
 
                     make('p',{},'selectbox'),
 
@@ -240,7 +236,7 @@ recordblock(
                         }
                     }),
 
-                    make('- - -'),
+                    make('----'),
 
                     make('p',{},'switchbox'),
 
@@ -249,7 +245,7 @@ recordblock(
                         update : refresh => alert('demo... '+refresh+'\n\nyou need to connect a global property')
                     }),
 
-                    make('- - -'),
+                    make('----'),
 
                     make('p',{},'sliders'),
 
@@ -269,7 +265,7 @@ recordblock(
                         }
                     }),
 
-                    make('- - -'),
+                    make('----'),
 
                     make('p',{},'sliders (compact)'),
 
@@ -290,7 +286,7 @@ recordblock(
                         }
                     }),
 
-                    make('----'),
+                    make('===='),
 
                     make('ui-togglebox',{
                         label: 'my label',
@@ -338,7 +334,7 @@ recordblock(
 
                 ]),
 
-                make('----'),
+                make('===='),
 
                 make('inspector-group --wide',[
 
@@ -349,7 +345,7 @@ recordblock(
                         actualType: 'center-center',
                     }),
 
-                    make('- - -'),
+                    make('----'),
 
                     make('ui-togglebox',{
                         label:'little demo of sizing box',
@@ -363,7 +359,7 @@ recordblock(
                         onClick: refresh => alert('demo...'+refresh+'\n\nyou need to connect a global property')
                     }),
 
-                    make('- - -'),
+                    make('----'),
 
                     make('ui-setmargins', {
                         top: '0',
@@ -375,7 +371,7 @@ recordblock(
 
                 ]),
 
-                make('----'),
+                make('===='),
 
                 make('inspector-group --wide',[
 
@@ -391,7 +387,7 @@ recordblock(
                         })
                     ]),
 
-                    make('----'),
+                    make('===='),
 
                     make('inspector-tab',{
                         label:' ➜ open color selection',
@@ -408,7 +404,7 @@ recordblock(
                         })
                     ]),
 
-                    make('----'),
+                    make('===='),
 
                     make('inspector-tab',{
                         label:' ➜ set a background',

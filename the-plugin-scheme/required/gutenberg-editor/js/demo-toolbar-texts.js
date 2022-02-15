@@ -49,7 +49,13 @@ recordblock(
         
         attributes: {
 
-            content: {},
+            demo_title: {
+                type: 'string',
+            },
+
+            demo_paragraph: {
+                type: 'string',
+            },
 
         },
         
@@ -86,32 +92,36 @@ recordblock(
             make('editor',[
 
                 make('div',{
-                    style:{
+                    style: {
                         background:'var(--base)',
                         padding:'25px',
-                        textAlign:'center'}
+                        textAlign:'center'
+                    }
                 },[
 
                     make('edit-texts',{
-                        style: { },
-                        // tagName: 'h2',
-                        className:'text-center',
+
+                        tagName: 'h3',
                         multiline:'br',
                         allowedFormats: formatslist,
+                        className:'text-center',
+                        style: { fontWeight:'bold' },
                         placeholder: '- toolbar: text editor -',
-                        value: props.attributes.content_demo_title,
-                        onChange: refreshText => {  props.setAttributes( { content_demo_title: refreshText } ) },
+                        value: props.attributes.demo_title,
+                        onChange: refresh => {  props.setAttributes( { demo_title: refresh } ) },
+
                     }),
 
                     make('edit-texts',{
-                        style: { },
+
                         tagName: 'p',
                         multiline:'p',
                         className:'text-center',
                         allowedFormats: formatslist,
                         placeholder: 'if you are in editor, click this editable text box',
-                        value: props.attributes.content_demo_text,
-                        onChange: refreshText => {  props.setAttributes( { content_demo_text: refreshText } ) },
+                        value: props.attributes.demo_paragraph,
+                        onChange: refresh => {  props.setAttributes( { demo_paragraph: refresh } ) },
+
                     })
 
                 ]),
@@ -125,7 +135,6 @@ recordblock(
     
             make('div',{
                 saved:true,
-                value:props.attributes.content,
                 style:{
                     background:'var(--base)',
                     padding:'25px',
@@ -133,14 +142,15 @@ recordblock(
                 }
             },[
  
-                make('h2',{
+                make('edit-texts',{
                     saved:true,
-                    value:props.attributes.content_demo_title
+                    tagName: 'h2',
+                    value:props.attributes.demo_title
                 }),
  
-                make('edit-texts-contents',{
+                make('edit-texts',{
                     saved:true,
-                    value:props.attributes.content_demo_text
+                    value:props.attributes.demo_paragraph
                 })
  
             ])

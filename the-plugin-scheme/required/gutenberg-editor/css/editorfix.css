@@ -147,14 +147,14 @@
     /** TOOLBAR/SIDEBAR DIVISORS */
 
     .components-divider,
-    .inspector-split {
+    .linesplit {
         left: 0px !important;
         right: 0px !important;
         margin: 15px -15px 15px -15px !important;
         width: inherit !important;
         position: static !important;
     }
-    .inspector-space{
+    .dashspace{
         margin: 0 0 15px 0 !important;
         padding: 15px 0 0 0 !important;
         border-bottom: 1px dashed var(--base);

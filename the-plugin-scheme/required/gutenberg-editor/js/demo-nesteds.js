@@ -24,26 +24,19 @@ recordblock(
     category: 'scheme-blocks',
     description: 'Add a standard sub contents or layouts box',
 
-    attributes: { 
-        content:{}
-    }, 
+	attributes: {},
 
     edit: props => { return ([
 
         make('editor',[
 
             make('nesting-group',{
-                // templateLock:'insert',
-                allowedBlocks:['core/columns','core/heading']
+                // extra params:
                 // template:[ [ 'core/heading', { placeholder: 'Test Title' } ], ... ],
+                // allowedBlocks:['core/columns','core/heading']
             })
 
         ])
-
-        // equivalent to:
-        // __ ('div', {className:'nesting-selector-container'}, 
-        //     __ ( _block_contents, {} )
-        // )
 
     ])},
 
@@ -52,11 +45,8 @@ recordblock(
         make('div',{
             saved:true
         },[
-            make('nesting-group-contents')
+            make('nesting-group',{saved:true})
         ])
-
-        //equivalent to:
-        //__ ('div', {}, __(_block_contents.Content) )
 
     )}
 

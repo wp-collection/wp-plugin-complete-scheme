@@ -39,7 +39,8 @@
 
 
             case 'editor' :
-                return __ ( 'div', {className:'wp-block'}, params)
+
+                return __ ( 'div', {className:'wp-block-prototyped'}, params)
 
 
             /*--------------------------------------------*/
@@ -88,14 +89,14 @@
                 return __ ( _inspector_group,{}, __ ('div',{className:'components-panel__wrapper --wide'},params))
 
 
-            case 'inspector-split' : case '----' :
+            case 'inspector-split' : case '====' :
 
-                return __ ( _split,{className:'inspector-split'})
+                return __ ( _split,{className:'linesplit'})
                     
 
-            case 'inspector-space':case '- - -' :
+            case 'inspector-space':case '----' :
 
-                return __ ('div',{className:'inspector-space'})
+                return __ ('div',{className:'dashspace'})
                 
 
             case 'inspector-grid-2' :
@@ -156,22 +157,28 @@
 
                     __ ('details',{className:'components-panel__tab'},[
 
-                        __ ('summary',{},
-                            (
-                                params.texticon
-                                ? __ ('p',{className:'tab-icon'},params.icon)
-                                : params.icon!=undefined&&params.icon.startsWith('http')
-                                ? __ ('div',{className:'tab-icon',style:{background:"url("+params.icon+") center center / cover" }})
-                                : params.icon!=undefined&&params.icon.startsWith('#')
-                                ? __ ('div',{className:'tab-icon',style:{background:params.icon }})
-                                : !params.icon|params.icon==null|params.icon==undefined
-                                ? __ ('span',{className:'tab-icon no-icon'},"✖")
-                                : __ ('span',{className:'tab-icon dashicon dashicons dashicons-'+params.icon})
+                        __ ('summary',{}, (
+
+                                params.texticon ?
+                                    __ ('p',{className:'tab-icon'},params.icon) :
+
+                                params.icon!=undefined&&params.icon.startsWith('http') ?
+                                    __ ('div',{className:'tab-icon',style:{background:"url("+params.icon+") center center / cover" }}) :
+
+                                params.icon!=undefined&&params.icon.startsWith('#') ?
+                                    __ ('div',{className:'tab-icon',style:{background:params.icon }}) :
+
+                                !params.icon|params.icon==null|params.icon==undefined ?
+                                    __ ('span',{className:'tab-icon no-icon'},"✖") :
+                                    __ ('span',{className:'tab-icon dashicon dashicons dashicons-'+params.icon})
+
                             ),
+
                             __ ('p',{},!params.label?'option group:':params.label),
+
                         ),
 
-                        __ ('div',{className:'tab-contents'},nested)
+                        __ ('div', { className:'tab-contents' }, nested )
 
                     ])
                 ])
@@ -179,7 +186,7 @@
 
             case 'inspector-banner' :
 
-                return __ ( 'img',{width:'100%',src:params.src})
+                return __ ( 'img',{style:{width:'100%'},src:params.src})
 
                 
             /*--------------------------------------------*/
@@ -188,12 +195,25 @@
 
                 let tbid = _generated_id()
 
-                return  __ ( 'div', {className:'toolbar-tab'}, [
-                            __ ( _ui_btn, {icon:params.icon, id:tbid, onClick: () => {
-                                let tab = document.getElementById(tbid).parentNode.classList;
-                                tab.contains('has-active')?tab.remove('has-active'):tab.add('has-active')
-                            }}),
-                            __ ( 'div', {className:'tab-contents'}, nested )
+                return  __ ( 'div', {
+                            className:'toolbar-tab'
+                        },[
+                            __ ( _ui_btn, {
+                                icon: params.icon,
+                                id: tbid,
+                                onClick: () => {
+
+                                    let tab = document.getElementById(tbid).parentNode.classList;
+
+                                    tab.contains('has-active')?
+                                        tab.remove('has-active'):
+                                        tab.add('has-active')
+
+                                }
+                            } ),
+
+                            __ ( 'div', { className: 'tab-contents' }, nested )
+
                         ],null)
 
 
@@ -202,26 +222,17 @@
 
             case 'edit-texts' :
 
-                return __ ( _ui_texts, params, nested)
-
-
-            case 'edit-texts-contents' :
-
-                return __ ( _ui_texts.Content, _blockdata.save(params),nested)
-
+                if (params.saved) { return __ ( _ui_texts.Content, params, nested) }
+                else              { return __ ( _ui_texts, params, nested)}
 
             /*--------------------------------------------*/
 
 
             case 'nesting-group' :
 
-                return __ ('div', { className: 'nesting-selector-container' }, __ ( _block_contents , params))
-
-
-            case 'nesting-group-contents' :
-
-                return __ ( 'div', {} , __( _block_contents.Content ) )
-
+                if (params.saved)   return __ ( 'div', {} , __( _block_contents.Content ) )
+                else                return __ ( 'div', { className: 'nesting-selector-container' }, __ ( _block_contents , params))
+                
 
             /*--------------------------------------------*/
 
@@ -289,7 +300,7 @@
 
                 let optresult = [];  for ( let _opt of params.opts ) optresult.push(  __ ( _ui_toggleslide_content, { value:_opt.value, label:_opt.label } ) )
 
-                return __ ( _ui_toggleslide, _blockdata({
+                return __ ( _ui_toggleslide, _data({
                             label:params.label,
                             value:params.value,
                             isBlock: true,
@@ -321,7 +332,7 @@
 
                             __ ('p',{},'Set anchoring'),
 
-                            __ ( _ui_radiobox, _blockdata({
+                            __ ( _ui_radiobox, _data({
                                 selected: params.actualType,
                                 options: [
                                     { label: 'standard anchor', value: 'relative' },
@@ -338,7 +349,7 @@
 
                             __ ('div',{className:'ui-positioner-grid'},
 
-                                __ ( _ui_radiobox, _blockdata({
+                                __ ( _ui_radiobox, _data({
                                     selected: params.actualCoord,
                                     options: [
                                         { label: '', value: 'top-left' },
@@ -363,7 +374,7 @@
 
                 return  __ ('div',{className:'ui-setmargins'},[
 
-                            __ ( _ui_range, _blockdata({
+                            __ ( _ui_range, _data({
                                 label:"top",
                                 value: parseInt(params.top),
                                 className:'compact',
@@ -376,7 +387,7 @@
                                 }
                             })),
 
-                            __ ( _ui_range, _blockdata({
+                            __ ( _ui_range, _data({
                                 label:"right",
                                 value:parseInt(params.right),
                                 className:'compact',
@@ -389,7 +400,7 @@
                                 }
                             })),
 
-                            __ ( _ui_range, _blockdata({
+                            __ ( _ui_range, _data({
                                 label:"bottom",
                                 value: parseInt(params.bottom),
                                 className:'compact',
@@ -402,7 +413,7 @@
                                 }
                             })),
 
-                            __ ( _ui_range, _blockdata({
+                            __ ( _ui_range, _data({
                                 label:"left",
                                 value: parseInt(params.left),
                                 className:'compact',
@@ -513,11 +524,13 @@
 
                 return  __ ( _ui_dropmenu, { icon: params.icon, label: params.label, controls: nested }, null)
 
+
             default : 
 
-                return params.saved==true
-                    ?  __ ( prototype, _blockdata.save(params), nested )
-                    :  __ ( prototype, params,  nested )
+                if(params.saved==true)
+                    return __ ( prototype, _data.save(params), nested )
+                else
+                    return __ ( prototype, params,  nested )
 
         }
     }

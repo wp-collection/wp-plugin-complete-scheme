@@ -45,7 +45,7 @@
 
     const _block_control          = wp.editor.BlockControls
     const _block_contents         = wp.blockEditor.InnerBlocks
-    const _blockdata              = wp.blockEditor.useBlockProps
+    const _data                   = wp.blockEditor.useBlockProps
 
     const _inspector              = wp.blockEditor.InspectorControls
     const _inspector_container    = wp.components.Panel
@@ -84,7 +84,6 @@
     const _ui_toggleslide_content = wp.components.__experimentalToggleGroupControlOption
 
 
-    //for now isn't called
     const _generated_id = () => {return String(Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1));}
 
 

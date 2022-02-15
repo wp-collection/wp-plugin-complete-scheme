@@ -15,6 +15,8 @@
 //:     info: https://imranhsayed.medium.com/attributes-and-components-in-gutenberg-blocks-richtext-blockcontrols-aligntoolbar-230910fcbd4a
 //:     info: https://github.com/WordPress/gutenberg/tree/trunk/packages/block-editor/src/components/inspector-controls
 
+//:     attr: https://reaktiv.co/blog/gutenberg-attributes/
+
 //:     toolbar : https://developer.wordpress.org/block-editor/reference-guides/components/toolbar/
 //:     allcomponents: https://github.com/WordPress/gutenberg/tree/trunk/packages/block-editor/src/components
 //:     all attributes: https://design.oit.ncsu.edu/docs/gutenberg/block-attributes/
@@ -43,11 +45,6 @@ recordblock(
     
     attributes: {
         
-        content: {},
-
-        test_trigger_1:         { default:false },
-        test_trigger_2:         { default:false },
-
         css_disabling:          { default: false },
         css_opacity:            { default: 100 },
         css_textalign:          { default: 'center' },
@@ -64,9 +61,7 @@ recordblock(
         css_bkgimage_id:        { default: null },
         css_position_type:      { default: 'relative'},
         css_position_coord:     { default: 'center-center'},
-
         css_fullradius:         { default: null },
-
         css_margins:            { default:'0 0 0 0'},
         css_margin_top:         { default: 0 },
         css_margin_right:       { default: 0 },
@@ -78,11 +73,9 @@ recordblock(
         opt_box_wide:           { default: false },
         opt_box_full:           { default: false },
 
-        opt_textarea:           { default: null },
-
         btn_selected:           { default:'first' },
 
-        content_h1:             { selector: 'h1' },
+        content_title:          { selector: 'h1' },
 
     },
     
@@ -105,8 +98,8 @@ recordblock(
             make('toolbar-group',[
 
                 make('ui-aligner',{
-                    value: props.attributes.align,
-                    onChange: refresh => props.setAttributes({ align: refresh })
+                    value: props.attributes.css_textalign,
+                    onChange: refresh => props.setAttributes({ css_textalign: refresh })
                 }),
 
                 make('ui-selectbox',{
@@ -156,8 +149,14 @@ recordblock(
 
                 make('inspector-group --wide',[
 
-                    make('inspector-grid-2', [
+                    make('a',{
+                        href:'https://github.com/wordpress-projects-station/wp-gutenberg-boxalign-css',
+                        target:'_blank',
+                        style:{ fontSize:'10px' }
+                    },'need a boxaligner css for align elements'),
 
+                    make('inspector-grid-2', [
+                        
                         make('ui-button',{
                             label:"standard",
                             value: props.attributes.opt_box_standard,
@@ -216,7 +215,7 @@ recordblock(
 
                     ]),
 
-                    make('----'),
+                    make('===='),
 
                     make('ui-range',{
                         label:"box height",
@@ -304,7 +303,7 @@ recordblock(
 
                 ]),
                 
-                make('- - -'),
+                make('----'),
 
                 make('inspector-tab',{
                     label:' ➜ open color picking',
@@ -318,7 +317,7 @@ recordblock(
                     })
                 ]),
                 
-                make('- - -'),
+                make('----'),
 
                 make('inspector-tab',{
                     label:' ➜ open color selection',
@@ -330,7 +329,7 @@ recordblock(
                     })
                 ]),
 
-                make('- - -'),
+                make('----'),
 
                 make('inspector-grid-2',[
                     
@@ -351,7 +350,7 @@ recordblock(
 
                 ]),
 
-                make('----'),
+                make('===='),
 
                 make('ui-positioner',{
                     setPositionType: refresh => {props.setAttributes({ css_position_type: refresh })},
@@ -360,7 +359,7 @@ recordblock(
                     actualType: props.attributes.css_position_type,
                 }),
 
-                make('- - -'),
+                make('----'),
 
                 make('ui-setmargins', {
                     top: props.attributes.css_margin_top,
@@ -419,8 +418,8 @@ recordblock(
                     tagName: 'h1',
                     allowedFormats: [],
                     placeholder: 'type anything here',
-                    value: props.attributes.content_h1,
-                    onChange: refreshText => {  props.attributes.css_disabling?alert('box is disabled'):props.setAttributes( { content_h1: refreshText } ) },
+                    value: props.attributes.content_title,
+                    onChange: refreshText => {  props.attributes.css_disabling?alert('box is disabled'):props.setAttributes( { content_title: refreshText } ) },
                 })
             ])
 
@@ -456,7 +455,7 @@ recordblock(
 
             make('edit-texts-contents',{
                 saved:true,
-                value:props.attributes.content_h1,
+                value:props.attributes.content_title,
                 tagName:'h1',
                 disabled:props.attributes.css_disabling?'true':null,
                 className:('__'+props.attributes.css_position_type+'-'+props.attributes.css_position_coord),

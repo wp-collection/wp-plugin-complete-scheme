@@ -19,21 +19,12 @@ recordblock(
 
 	attributes: {
 
-		content:{
-			type: 'array',
-			source: 'children',
+		demo_title: {
+			type: 'string'
 		},
 
-		content_title: {
-			type: 'array',
-			source: 'children',
-			selector: 'h1',
-		},
-
-		content_paragraph: {
-			type: 'array',
-			source: 'children',
-			selector: 'p',
+		demo_paragraph: {
+			type: 'string'
 		},
 
 	},
@@ -46,9 +37,9 @@ recordblock(
 
 				tagName: 'h1',
 				allowedFormats: [ 'core/bold' ],
-				value: props.attributes.content_title,
+				value: props.attributes.demo_title,
 				placeholder: 'type anything here',
-				onChange: refresh => { props.setAttributes( { content_title: refresh } ) },
+				onChange: refresh => { props.setAttributes( { demo_title: refresh } ) },
 
 			}),
 
@@ -58,9 +49,9 @@ recordblock(
 				// multiline: false, 
 				// preserveWhiteSpace: false,
 				allowedFormats: [ 'core/bold', 'core/italic' ],
-				value: props.attributes.content_paragraph,
+				value: props.attributes.demo_paragraph,
 				placeholder: 'type anything here',
-				onChange: refresh => { props.setAttributes( { content_paragraph: refresh } ) },
+				onChange: refresh => { props.setAttributes( { demo_paragraph: refresh } ) },
 
 			})
 		
@@ -70,22 +61,18 @@ recordblock(
 
 	save: props => { return (
 
-		make('div',{
-			saved:true,
-			className:'my-custom-class',
-			value:props.attributes.content
-		},[
+		make('div',{saved:true},[
 
-			make('edit-texts-contents',{
+			make('edit-texts',{
 				saved:true,
 				tagName: 'h1',
-				value: props.attributes.content_title
+				value: props.attributes.demo_title
 			}),
 
-			make('edit-texts-contents',{
+			make('edit-texts',{
 				saved:true,
 				tagName: 'p',
-				value: props.attributes.content_paragraph
+				value: props.attributes.demo_paragraph
 			})
 
 		])

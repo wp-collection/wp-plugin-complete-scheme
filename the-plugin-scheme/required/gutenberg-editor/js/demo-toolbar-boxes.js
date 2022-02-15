@@ -1,6 +1,6 @@
 /*
 // GUTENBERG BLOCK
-// --------------------------
+// ====----====----====----====----====----====------
 // - this file save a wysiwyg block
 // - a demo of all toolbar and inspector parts
 */
@@ -16,8 +16,6 @@ recordblock(
 
         attributes: {
 
-            content: {},
-
         },
 
         edit: props => { return ([
@@ -32,7 +30,7 @@ recordblock(
                         make('ui-button',{
                             label:'toolbar!',
                             className:"my-custom-button",
-                            onClick: () => { alert('pressed button') }
+                            onClick: () => alert('pressed button')
                         }),
                         
                     ]), 
@@ -43,7 +41,7 @@ recordblock(
                             icon: 'info',
                             help:'this is an exempe of custom button in custom toolbar!',
                             className:"my-custom-button",
-                            onClick: () => { alert('pressed button') }
+                            onClick: () => alert('pressed button')
                         }),
                         
                     ]),
@@ -53,7 +51,11 @@ recordblock(
                             // label:'Visibility',
                             // help:'if is visible or not (demo)', not raccomended
                             checked:props.attributes.data_your_status,
-                            onClick: status =>{ status=!props.attributes.data_your_status; alert("(demo) box visibility is now: "+status); props.setAttributes({ data_your_status:!!status })}
+                            onClick: status => {
+                                status=!props.attributes.data_your_status;
+                                alert("(demo) box visibility is now: "+status);
+                                props.setAttributes({ data_your_status:!!status })
+                            }
                         }),
                     ]),
     
@@ -176,7 +178,7 @@ recordblock(
                                 actualType: 'center-center',
                             }),
 
-                            make('----'),
+                            make('===='),
 
                             make('ui-setmargins', {
                                 top: '0',
@@ -251,8 +253,11 @@ recordblock(
 
             make('div',{
                 saved:true,
-                value:props.attributes.content,
-                style:{background:'var(--base)',padding:'25px',textAlign:'center'}
+                style:{
+                    background:'var(--base)',
+                    padding:'25px',
+                    textAlign:'center'
+                }
             },[
 
                 make('h2',{
