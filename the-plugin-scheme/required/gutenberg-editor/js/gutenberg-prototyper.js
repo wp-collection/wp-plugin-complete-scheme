@@ -201,7 +201,6 @@
 
                 if (!params.update) {
 
-                    // params.value==undefined?console.log("_ui_texts prototype message: gutenberg rich text value result undefined. Please set attributes:{ YOURCONTENT: { type:'string' } }"):null
                     return  __ ( _ui_texts.Content, { 
 
                         className: params.classes,
@@ -656,11 +655,10 @@
                 }, null)
 
 
-            default : 
+            default :
 
-                // if(params.saved==true)
-                //     return __ ( prototype, _data.save(params), nested )
-                // else
+                if(document.createElement(prototype.toUpperCase()) != "[object HTMLUnknownElement]")
+
                     return __ ( prototype, {
 
                         className: params.classes,
@@ -669,7 +667,12 @@
 
                     },  nested )
 
-        }
+                else
+                
+                    console.log("WARNING: prototype is not html recognized or not prototype: ",prototype)
+
+    
+        } 
     }
 
     

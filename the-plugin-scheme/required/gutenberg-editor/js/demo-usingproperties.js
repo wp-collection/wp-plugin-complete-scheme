@@ -375,7 +375,7 @@ recordblock(
 
         // SUBJECT STRUCTURE
         make('editor',[
-                    
+
             make('div',{
                 
                 classes:
