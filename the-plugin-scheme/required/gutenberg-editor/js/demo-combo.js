@@ -65,12 +65,12 @@ recordblock(
 		make('div',{},[
 
 			make('edit-texts',{
-				tagName: 'h1',
+				tag: 'h1',
 				value: props.attributes.demo_title
 			}),
 
 			make('edit-texts',{
-				tagName: 'p',
+				tag: 'p',
 				value: props.attributes.demo_paragraph
 			})
 

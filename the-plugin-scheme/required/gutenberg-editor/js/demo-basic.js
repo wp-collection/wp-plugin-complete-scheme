@@ -48,7 +48,7 @@ recordblock(
 	save: props => { return (
 
 		make('edit-texts',{
-			tagName: 'h1',
+			tag: 'h1',
 			value: props.attributes.demo_text,
 		})
 

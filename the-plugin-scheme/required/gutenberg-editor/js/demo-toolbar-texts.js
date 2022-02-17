@@ -104,8 +104,8 @@ recordblock(
 
                         tag: 'h3',
                         break:'br',
-                        allowedFormats: formatslist,
-                        class:'text-center',
+                        formats: formatslist,
+                        classes:'text-center',
                         style: { fontWeight:'bold' },
                         placeholder: '- toolbar: text editor -',
                         value: props.attributes.demo_title,
@@ -117,8 +117,8 @@ recordblock(
 
                         tag: 'p',
                         break:'p',
-                        class:'text-center',
-                        allowedFormats: formatslist,
+                        classes:'text-center',
+                        formats: formatslist,
                         placeholder: 'if you are in editor, click this editable text box',
                         value: props.attributes.demo_paragraph,
                         update: data => {  props.setAttributes( { demo_paragraph: data } ) },
@@ -143,12 +143,12 @@ recordblock(
             },[
  
                 make('edit-texts',{
-                    tagName: 'h2',
+                    tag: 'h2',
                     value:props.attributes.demo_title
                 }),
  
                 make('edit-texts',{
-                    tagName: 'p',
+                    tag: 'p',
                     value:props.attributes.demo_paragraph
                 })
  

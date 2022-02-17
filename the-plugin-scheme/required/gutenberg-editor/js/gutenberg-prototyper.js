@@ -35,6 +35,7 @@
 
         var nested = contents==undefined?null:contents
 
+        
         switch( prototype ) {
 
 
@@ -172,8 +173,10 @@
                             className:'toolbar-tab'
                         },[
                             __ ( _ui_btn, {
+
                                 icon: params.icon,
                                 id: tbid,
+
                                 onClick: () => {
 
                                     let tab = document.getElementById(tbid).parentNode.classList;
@@ -183,6 +186,7 @@
                                         tab.add('has-active')
 
                                 }
+
                             } ),
 
                             __ ( 'div', { className: 'tab-contents' }, nested )
@@ -197,21 +201,35 @@
 
                 if (!params.update) {
 
-                    params.value==undefined?console.log("_ui_texts prototype message: gutenberg rich text value result undefined. Please set attributes:{ YOURCONTENT: { type:'string' } }"):null
-                    return  __ ( _ui_texts.Content, params, null)
+                    // params.value==undefined?console.log("_ui_texts prototype message: gutenberg rich text value result undefined. Please set attributes:{ YOURCONTENT: { type:'string' } }"):null
+                    return  __ ( _ui_texts.Content, { 
+
+                        className: params.classes,
+                        style:params.style,
+                        id:params.id,
+
+                        tagName: params.tag,
+                        value:params.value
+
+                    })
 
                 } else {
 
                     return  __ ( _ui_texts, {
+
+                        className: params.classes,
+                        style:params.style,
+                        id:params.id,
+
                         tagName: params.tag,
                         multiline: params.break, 
                         preserveWhiteSpace: !params.unspace,
                         allowedFormats: params.formats,
-                        placeHolder: params.placeholder,
-                        className: params.classes,
-                        style:params.style,
+                        placeholder: params.placeholder,
                         value: params.value,
+    
                         onChange: data => ( params.update(String(data)) )
+
                     })
 
                 }
@@ -231,10 +249,13 @@
 
                 return __ (_ui_textarea, {
 
-                    placeHolder: params.placeHolder,
+                    className: params.classes,
                     style:params.style,
-                    className: params.class,
-                    value: params.val,
+                    id:params.id,
+
+                    placeHolder: params.placeHolder,
+                    value: params.val,                    
+
                     onChange: newtext => props.update(newtext)
 
                 })
@@ -243,7 +264,11 @@
             case 'ui-aligner' :
 
                 return __ ( _ui_alignbar, {
-                    
+
+                    className: params.classes,
+                    style:params.style,
+                    id:params.id,
+
                     value: params.value,
                     onChange: data => params.update( data) 
 
@@ -258,27 +283,43 @@
             case 'ui-button':
 
                 return __ ( params.icon && !params.label ? _ui_btnicon : _ui_btn, {
+
+                    className: params.classes,
+                    style:params.style,
+                    id:params.id,
+
                     icon: params.icon,
                     label: params.label,
                     value: params.value,
-                    style:params.style,
-                    className: params.class,
+
                     onClick: data => params.update(data)
+
                 }, params.label )
 
 
             case 'ui-featuredimage' :
 
-                return __ ( _ui_feauteredImg,{},null )
+                return __ ( _ui_feauteredImg,{
+
+                    className: params.classes,
+                    style:params.style,
+                    id:params.id,
+
+                },null )
 
 
             case 'ui-checkbox' :
 
                 return __ ( _ui_checkbox, {
 
+                    className: params.classes,
+                    style:params.style,
+                    id:params.id,
+
                     label: params.label,
                     help: params.help,
                     checked:params.status,
+
                     onClick: () => { params.update( !params.status?true:false ) }
 
                 }, null )
@@ -288,8 +329,13 @@
 
                 return __ ( _ui_radiobox, {
 
+                    className: params.classes,
+                    style:params.style,
+                    id:params.id,
+
                     selected: params.value,
                     options: params.list,
+
                     onChange: refresh => params.update( refresh ) 
 
                 }, null )
@@ -300,13 +346,18 @@
 
                 return __ ( _ui_range , {
 
-                    className:( prototype.includes('-compact') ? params.className+=' compact' : null ),
+                    
+                    style:params.style,
+                    className: params.classes+' '+( prototype.includes('-compact') ? params.className+=' compact' : null ),
+                    id:params.id,
+
                     label:params.label,
                     value:params.value,
                     min:params.min,
                     max:params.max,
                     step:params.step,
                     marks:params.list,
+
                     onChange: data => params.update(data)
 
                 } , null )
@@ -315,11 +366,16 @@
             case 'ui-selectbox' :
 
                 return __ ( _ui_select, {
-            
+
+                    className: params.classes,
+                    style:params.style,
+                    id:params.id,
+
                     label: params.label,
                     value: params.value,
                     multiple:params.multiple,
-                    options: params.list, 
+                    options: params.list,
+
                     onChange: data => params.update( data )
 
                 }, null )
@@ -331,9 +387,14 @@
 
                 return __ ( _ui_toggleslide, {
 
+                    className: params.classes,
+                    style:params.style,
+                    id:params.id,
+
                     label:params.label,
                     value:params.value,
                     isBlock: true,
+
                     onChange: data => params.update(data)
 
                 } , optresult )
@@ -343,7 +404,12 @@
 
                 return __ ( _ui_switcher , {
 
+                    className: params.classes,
+                    style:params.style,
+                    id:params.id,
+
                     checked: params.status,
+
                     onClick : () => { params.update( !params.status?true:false ) }
 
                 }, null)
@@ -353,9 +419,14 @@
 
                 return __ ( _ui_color,{
 
+                    className: params.classes,
+                    style:params.style,
+                    id:params.id,
+
                     disableAlpha: params.alpha,
                     value: params.value,
                     defaultValue: ! params.default ? '#000000' : params.default,
+
                     onChangeComplete: data => params.update(data.hex)
 
                 }, null )
@@ -364,8 +435,15 @@
             case 'ui-color-palette' :
 
                 return __ ( _ui_palette, {
+
+                    className: params.classes,
+                    style:params.style,
+                    id:params.id,
+
                     colors: params.colors,
+
                     onChange: data => params.update(data)
+
                 }, null )
 
 
@@ -565,7 +643,17 @@
 
             case 'ui-dropdown' : 
 
-                return  __ ( _ui_dropmenu, { icon: params.icon, label: params.label, controls: nested }, null)
+                return  __ ( _ui_dropmenu, { 
+
+                    className: params.classes,
+                    style:params.style,
+                    id:params.id,
+
+                    icon: params.icon,
+                    label: params.label,
+                    controls: nested
+
+                }, null)
 
 
             default : 
@@ -573,7 +661,13 @@
                 // if(params.saved==true)
                 //     return __ ( prototype, _data.save(params), nested )
                 // else
-                    return __ ( prototype, params,  nested )
+                    return __ ( prototype, {
+
+                        className: params.classes,
+                        style:params.style,
+                        id:params.id,
+
+                    },  nested )
 
         }
     }

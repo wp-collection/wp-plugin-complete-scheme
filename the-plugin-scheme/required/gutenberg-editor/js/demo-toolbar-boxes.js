@@ -30,7 +30,7 @@ recordblock(
                     
                         make('ui-button',{
                             label:'toolbar!',
-                            className:"my-custom-button",
+                            classes:"my-custom-button",
                             update: data => alert('demo, button pressed')
                         }),
                         
@@ -38,10 +38,10 @@ recordblock(
     
                     make('toolbar-group',[
                     
-                        make('ui-button --iconic',{
+                        make('ui-button',{
                             icon: 'info',
                             help:'this is an exempe of custom button in custom toolbar!',
-                            className:"my-custom-button",
+                            classes:"my-custom-button",
                             update: data => alert('demo, button pressed')
                         }),
                         
@@ -52,14 +52,14 @@ recordblock(
                             // label:'Visibility',
                             // help:'if is visible or not (demo)', not raccomended
                             checked:false,
-                            update: data => alert('demo, canging to:  '+data)
+                            update: data => alert('demo, changing to:  '+data)
                         }),
                     ]),
     
                     make('toolbar-group',[
                         make('ui-switchbox',{
                             status:false,
-                            update : data => alert('(demo) canging to:  '+data)
+                            update : data => alert('(demo) changing to:  '+data)
                         }),
                     ]),
     

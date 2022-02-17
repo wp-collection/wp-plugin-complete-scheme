@@ -76,7 +76,7 @@ recordblock(
 
         btn_selected:           { default:'first' },
 
-        content_title:          { selector: 'h1' },
+        content_title:          { type: 'string' },
 
     },
     
@@ -87,11 +87,11 @@ recordblock(
 
             make('toolbar-group',[
             
-                make('ui-button --iconic',{
+                make('ui-button',{
                     icon: 'info',
                     help:'this is an exempe of custom button in custom toolbar!',
-                    className:"my-custom-button",
-                    update: () => { alert('pressed button') }
+                    classes:"my-custom-button",
+                    update: () => alert('button pressed!')
                 }),
                 
             ]),
@@ -100,25 +100,21 @@ recordblock(
 
                 make('ui-aligner',{
                     value: props.attributes.css_textalign,
-                    onChange: refresh => props.setAttributes({ css_textalign: refresh })
+                    update: data => props.setAttributes({ css_textalign: data })
                 }),
 
                 make('ui-selectbox',{
-                    // label: "Font size",
-                    // multiple:true,
                     value: props.attributes.css_textsize,
-                    options: [{ label: 'Big', value: '450' }, { label: 'Medium', value: '200' }, { label: 'Small', value: '100' }],
-                    onChange: refreshSize => props.setAttributes({ css_textsize: refreshSize })
+                    list: [{ label: 'Big', value: '450' }, { label: 'Medium', value: '200' }, { label: 'Small', value: '100' }],
+                    update: dataSize => props.setAttributes({ css_textsize: dataSize })
                 }),
 
             ]),
 
             make('toolbar-group',[
                 make('ui-checkbox',{
-                    // label:'Visibility', not raccomended
-                    // help:'if is visible or not (demo)', not raccomended
                     checked:props.attributes.css_disabling,
-                    onClick: status =>{ props.setAttributes({ css_disabling:!!props.attributes.css_disabling })}
+                    update: status =>{ props.setAttributes({ css_disabling:!!props.attributes.css_disabling })}
                 }),
             ]),
 
@@ -128,7 +124,7 @@ recordblock(
                     value: props.attributes.css_fullpads,
                     min:0,
                     max:100,
-                    onChange: newPads => props.setAttributes({ css_fullpads: newPads })
+                    update: newPads => props.setAttributes({ css_fullpads: newPads })
                 }),
             ]),
 
@@ -161,7 +157,7 @@ recordblock(
                         make('ui-button',{
                             label:"standard",
                             value: props.attributes.opt_box_standard,
-                            className: props.attributes.opt_box_standard?'is-active':'',
+                            classes: props.attributes.opt_box_standard?'is-active':'',
                             update: () => {
                                 props.setAttributes({ 
                                     opt_box_standard: true,
@@ -175,7 +171,7 @@ recordblock(
                         make('ui-button',{
                             label:"centered",
                             value: props.attributes.opt_box_center,
-                            className: props.attributes.opt_box_center?'is-active':'',
+                            classes: props.attributes.opt_box_center?'is-active':'',
                             update: () => {
                                 props.setAttributes({
                                     opt_box_standard: false,
@@ -189,7 +185,7 @@ recordblock(
                         make('ui-button',{
                             label:"widebox",
                             value: props.attributes.opt_box_wide,
-                            className: props.attributes.opt_box_wide?'is-active':'',
+                            classes: props.attributes.opt_box_wide?'is-active':'',
                             update: () => {
                                 props.setAttributes({
                                     opt_box_standard: false,
@@ -203,7 +199,7 @@ recordblock(
                         make('ui-button',{
                             label:"fullpage",
                             value: props.attributes.opt_box_full,
-                            className: props.attributes.opt_box_full?'is-active':'',
+                            classes: props.attributes.opt_box_full?'is-active':'',
                             update: () => {
                                 props.setAttributes({
                                     opt_box_standard: false,
@@ -223,7 +219,7 @@ recordblock(
                         value: props.attributes.css_boxheight,
                         min:0,
                         max:100,
-                        onChange: refresh => props.setAttributes({ css_boxheight: refresh })
+                        update: data => props.setAttributes({ css_boxheight: data })
                     }),
 
                     make('ui-range',{
@@ -231,7 +227,7 @@ recordblock(
                         value: props.attributes.css_boxwidth,
                         min:0,
                         max:100,
-                        onChange: refresh => props.setAttributes({ css_boxwidth: refresh })
+                        update: data => props.setAttributes({ css_boxwidth: data })
                     }),
 
                     make('ui-range',{
@@ -239,7 +235,7 @@ recordblock(
                         value: props.attributes.css_fullpads,
                         min:0,
                         max:100,
-                        onChange: refresh => props.setAttributes({ css_fullpads: refresh })
+                        update: data => props.setAttributes({ css_fullpads: data })
                     }),
 
                     make('ui-range',{
@@ -247,7 +243,7 @@ recordblock(
                         value: props.attributes.css_fullradius,
                         min:0,
                         max:100,
-                        onChange: refresh => props.setAttributes({ css_fullradius: refresh })
+                        update: data => props.setAttributes({ css_fullradius: data })
                     }),
 
                     make('ui-range',{
@@ -263,7 +259,7 @@ recordblock(
                             { value: 75, label: '75', },
                             { value: 100, label: '100', },
                         ],
-                        onChange: refresh => props.setAttributes({ css_opacity: refresh })
+                        update: data => props.setAttributes({ css_opacity: data })
                     }),
 
                 ]),
@@ -299,7 +295,7 @@ recordblock(
                     make('ui-checkbox',{
                         label: 'active/disable box',
                         checked:props.attributes.css_disabling,
-                        onChange: refresh => { alert('demo - actual status is:'+refresh+'\n\nyou need to connect a global property') }
+                        update: data => { alert('demo, actual status is:'+data+'\nyou need to connect a global property') }
                     }),
 
                 ]),
@@ -311,10 +307,10 @@ recordblock(
                     icon: props.attributes.css_textcolor,
                 },[
                     make('ui-color-picker',{
-                        disableAlpha: false,
+                        alpha: false,
                         value: props.attributes.css_textcolor,
-                        defaultValue: props.attributes.css_textcolor,
-                        onChangeComplete: refresh => { props.setAttributes({ css_textcolor: refresh.hex}); }
+                        default: props.attributes.css_textcolor,
+                        update: data => { props.setAttributes({ css_textcolor: data}); }
                     })
                 ]),
                 
@@ -326,7 +322,7 @@ recordblock(
                 },[
                     make('ui-color-palette',{
                         colors: webcolors,
-                        onChange: refresh => { props.setAttributes({ css_bkgcolor: refresh}); }
+                        update: data => { props.setAttributes({ css_bkgcolor: data}); }
                     })
                 ]),
 
@@ -337,7 +333,7 @@ recordblock(
                     make('inspector-group --aligned',[
                         make('ui-aligner',{
                             value: props.attributes.css_textalign,
-                            onChange: refresh => props.setAttributes({ css_textalign: refresh })
+                            update: data => props.setAttributes({ css_textalign: data })
                         }),
                         make('p',{},'Align Text',),
                     ]),
@@ -346,7 +342,7 @@ recordblock(
                         multiple:false,
                         value: props.attributes.css_textsize,
                         options: [{ label: 'Big', value: '450' }, { label: 'Medium', value: '200' }, { label: 'Small', value: '100' }],
-                        onChange: refresh => props.setAttributes({ css_textsize: refresh })
+                        update: data => props.setAttributes({ css_textsize: data })
                     }),
 
                 ]),
@@ -354,8 +350,8 @@ recordblock(
                 make('===='),
 
                 make('ui-positioner',{
-                    setPositionType: refresh => {props.setAttributes({ css_position_type: refresh })},
-                    setPositionCoord: refresh => {props.setAttributes({ css_position_coord: refresh })},
+                    setPositionType: data => {props.setAttributes({ css_position_type: data })},
+                    setPositionCoord: data => {props.setAttributes({ css_position_coord: data })},
                     actualCoord: props.attributes.css_position_coord,
                     actualType: props.attributes.css_position_type,
                 }),
@@ -382,7 +378,7 @@ recordblock(
                     
             make('div',{
                 
-                className:
+                classes:
                     props.attributes.opt_box_center?'aligncenter':
                     props.attributes.opt_box_wide?'alignwide':
                     props.attributes.opt_box_full?'alignfull':'' 
@@ -405,7 +401,6 @@ recordblock(
                 }
             },[
                 make('edit-texts',{
-                    disabled:props.attributes.css_disabling?'true':null,
                     style: { 
                         color: props.attributes.css_textcolor,
                         textAlign: props.attributes.css_textalign,
@@ -415,12 +410,11 @@ recordblock(
                         opacity: props.attributes.css_disabling?'50%':null,
                         margin:props.attributes.css_margins
                     },
-                    className:('__'+props.attributes.css_position_type+'-'+props.attributes.css_position_coord),
-                    tagName: 'h1',
-                    allowedFormats: [],
+                    classes:('__'+props.attributes.css_position_type+'-'+props.attributes.css_position_coord),
+                    tag: 'h1',
                     placeholder: 'type anything here',
                     value: props.attributes.content_title,
-                    onChange: refreshText => {  props.attributes.css_disabling?alert('box is disabled'):props.setAttributes( { content_title: refreshText } ) },
+                    update: dataText => {  props.attributes.css_disabling?alert('box is disabled'):props.setAttributes( { content_title: dataText } ) },
                 })
             ])
 
@@ -431,7 +425,7 @@ recordblock(
     save: props => { return (
 
         make('div',{
-            className:
+            classes:
                 props.attributes.opt_box_center?'aligncenter':
                 props.attributes.opt_box_wide?'alignwide':
                 props.attributes.opt_box_full?'alignfull':'' 
@@ -454,9 +448,8 @@ recordblock(
 
             make('edit-texts',{
                 value:props.attributes.content_title,
-                tagName:'h1',
-                disabled:props.attributes.css_disabling?'true':null,
-                className:('__'+props.attributes.css_position_type+'-'+props.attributes.css_position_coord),
+                tag:'h1',
+                classes:('__'+props.attributes.css_position_type+'-'+props.attributes.css_position_coord),
                 style:{ 
                     pointerEvents: props.attributes.css_disabling?'none':null,
                     opacity: props.attributes.css_disabling?'50%':null,
