@@ -13,6 +13,7 @@ recordblock(
     icon: 'superhero-alt',
     category: 'scheme-blocks',
     description: 'A set of repicable examples of all modded editor components.',
+	example: {},
     
     edit: props => { return ([
 
@@ -131,14 +132,14 @@ recordblock(
 
                 make('inspector-group --wide',[
 
-                    make('p',{},'button "--iconic"'),
+                    make('p',{},'button "iconic"'),
 
                     make('inspector-group --aligned',[
-                        make('ui-button --iconic',{
+                        make('ui-button',{
                             icon: 'info',
                             label:"this is icon button!",
                             className: props.attributes.test?'is-active':'',
-                            onClick: () => alert('demo...\n\nyou need to connect a global property')
+                            update: data => (console.log(data),alert('demo... event is in console\nyou need to connect a global property'))
                         }),
                     ]),
 
@@ -149,17 +150,17 @@ recordblock(
                     make('inspector-group --aligned',[
                         make('ui-button',{
                             label:"this is classic button!",
-                            onClick: () => alert('demo...\n\nyou need to connect a global property')
+                            update: data => (console.log(data),alert('demo... event is in console\nyou need to connect a global property'))
                         }),
                     ]),
 
                     make('----'),
 
-                    make('p',{},'button "--featuredimage"'),
+                    make('p',{},'button for featuredimage'),
 
-                    make('ui-button --featuredimage',{
+                    make('ui-featuredimage',{
                         label:"this is featured image button!",
-                        onClick: () => alert('demo...\n\nyou need to connect a global property')
+                        update: data => (console.log(data),alert('demo... data is in console\nyou need to connect a global property'))
                     }),
 
                     make('p',{},'buttons and buttons group'),
@@ -167,18 +168,18 @@ recordblock(
 
                     make('ui-btn-group',[
 
-                        make('ui-button --iconic',{
+                        make('ui-button',{
                             icon: 'star-empty',
                             value: 'first',
                             className: props.attributes.test_selected!='first'?'':'is-active',
-                            onClick: () => props.setAttributes({test_selected:'first'})
+                            update: () => props.setAttributes({test_selected:'first'})
                         }),
 
-                        make('ui-button --iconic',{
+                        make('ui-button',{
                             icon: 'star-half',
                             value: 'second',
                             className: props.attributes.test_selected!='second'?'':'is-active',
-                            onClick: () => props.setAttributes({test_selected:'second'})
+                            update: () => props.setAttributes({test_selected:'second'})
                         }),
 
                         make('ui-button',{
@@ -186,7 +187,7 @@ recordblock(
                             label: 'this is test!',
                             value: 'third',
                             className: props.attributes.test_selected!='third'?'':'is-active',
-                            onClick: () => props.setAttributes({test_selected:'third'})
+                            update: () => props.setAttributes({test_selected:'third'})
                         })
 
                     ]),
@@ -199,9 +200,7 @@ recordblock(
                     make('ui-checkbox',{
                         label:"demo check true false",
                         checked:false,
-                        onChange: refresh => { 
-                            alert('demo - actual status is:'+refresh+'\n\nyou need to connect a global property')
-                        }
+                        update: data => alert('demo - actual status is:'+data+'\nyou need to connect a global property')
                     }),
 
                     make('----'),
@@ -215,9 +214,7 @@ recordblock(
                             { label: '- like other', value: 'two' },
                             { label: '- like anywone', value: 'three' },
                         ],
-                        onChange: refresh => { 
-                            alert('demo - actual selected :'+refresh+'\n\nyou need to connect a global property')
-                        }
+                        update: data => alert('demo - actual selected :'+data+'\nyou need to connect a global property')
                     }),
 
                     make('----'),
@@ -226,14 +223,12 @@ recordblock(
 
                     make('ui-selectbox',{
                         value: "one",
-                        options: [
+                        list: [
                             { label: 'like one (value:one)', value: 'one' },
                             { label: 'like other (value:two)', value: 'two' },
                             { label: 'like anywone (value:three)', value: 'three' },
                         ],
-                        onChange: refresh => { 
-                            alert('demo - actual value selected :'+refresh+'\n\nyou need to connect a global property')
-                        }
+                        update: data => alert('demo - actual value selected :'+data+'\nyou need to connect a global property')
                     }),
 
                     make('----'),
@@ -242,7 +237,7 @@ recordblock(
 
                     make('ui-switchbox',{
                         status:false,
-                        update : refresh => alert('demo... '+refresh+'\n\nyou need to connect a global property')
+                        update : data => alert('demo... '+data+'\nyou need to connect a global property')
                     }),
 
                     make('----'),
@@ -260,9 +255,7 @@ recordblock(
                             { value: 50, label: '50', },
                             { value: 100, label: '100', },
                         ],
-                        onMouseUp: refresh => {
-                            alert('demo - actual status is:'+refresh.value+'\n\nyou need to connect a global property')
-                        }
+                        update: data => alert('demo - actual status is:'+data.value+'\nyou need to connect a global property')
                     }),
 
                     make('----'),
@@ -281,9 +274,7 @@ recordblock(
                             { value: 50, label: '50', },
                             { value: 100, label: '1', },
                         ],
-                        onClick: refresh => {
-                            alert('demo - actual status is:'+refresh.value+'\n\nyou need to connect a global property')
-                        }
+                        update: data => alert('demo - actual status is:'+data.value+'\nyou need to connect a global property')
                     }),
 
                     make('===='),
@@ -291,11 +282,12 @@ recordblock(
                     make('ui-togglebox',{
                         label: 'my label',
                         value: 'm',
-                        opts:[
+                        list:[
                             { value: 's', label: 'small' },
                             { value: 'm', label: 'medium' },
                             { value: 'b', label: 'big' }
-                        ]
+                        ],
+                        update: data => alert('demo - actual status is:'+data.value+'\nyou need to connect a global property')
                     }),
 
                 ]),
@@ -309,7 +301,7 @@ recordblock(
 
                     make('ui-aligner',{
                         value: props.attributes.css_textalign,
-                        onChange: refresh => alert('demo:'+refresh+'\n\nyou need to connect a global property'),
+                        update: data => alert('demo:'+data+'\nyou need to connect a global property'),
                     }),
 
                     make('p', {},' - Align Text'),
@@ -339,8 +331,8 @@ recordblock(
                 make('inspector-group --wide',[
 
                     make('ui-positioner',{
-                        setPositionType: refresh => alert('demo:'+refresh+'\n\nyou need to connect a global property'),
-                        setPositionCoord: refresh => alert('demo:'+refresh+'\n\nyou need to connect a global property'),
+                        setPositionType: data => alert('demo:'+data+'\nyou need to connect a global property'),
+                        setPositionCoord: data => alert('demo:'+data+'\nyou need to connect a global property'),
                         actualCoord: 'relative',
                         actualType: 'center-center',
                     }),
@@ -350,13 +342,13 @@ recordblock(
                     make('ui-togglebox',{
                         label:'little demo of sizing box',
                         value: 'standard',
-                        opts:[
+                        list:[
                             { value: 'normal', label: 'normal' },
                             { value: 'wide', label: 'wide' },
                             { value: 'center', label: 'center' },
                             { value: 'full', label: 'full' },
                         ],
-                        onClick: refresh => alert('demo...'+refresh+'\n\nyou need to connect a global property')
+                        update: data => alert('demo...'+data+'\nyou need to connect a global property')
                     }),
 
                     make('----'),
@@ -366,7 +358,7 @@ recordblock(
                         right:  '0',
                         bottom: '0',
                         left: '0',
-                        update: (dir,px,shorthand) => alert('demo...\n\nyou need to connect a global property')
+                        update: (dir,px,shorthand) => alert('demo...\nyou need to connect a global property')
                     }),
 
                 ]),
@@ -380,10 +372,10 @@ recordblock(
                         icon: props.attributes.css_textcolor,
                     },[
                         make('ui-color-picker',{
-                            disableAlpha: false,
+                            alpha: false,
                             value: '#454545',
-                            defaultValue: '#000000',
-                            onChangeComplete: refresh => alert('demo...'+refresh.hex+'\n\nyou need to connect a global property')
+                            default: '#000000',
+                            update: data => alert('demo...'+data+'\nyou need to connect a global property')
                         })
                     ]),
 
@@ -400,7 +392,7 @@ recordblock(
                                 { name: 'red', color: '#ff1212' },
                                 { name: 'blue', color: '#122fff' },
                             ],
-                            onChange: refresh => alert('demo...'+refresh+'\n\nyou need to connect a global property')
+                            update: data => alert('demo...'+data+'\nyou need to connect a global property')
                         })
                     ]),
 
@@ -411,11 +403,11 @@ recordblock(
                         icon: 'https://images.pexels.com/photos/2038832/pexels-photo-2038832.jpeg?auto=compress&cs=tinysrgb&dpr=3&w=432',
                     },[
                         make('ui-background',{
-                            reset: () => alert('demo...\n\nyou need to connect a global property'),
-                            setCover: () => alert('demo...\n\nyou need to connect a global property'),
-                            setRepeat: () => alert('demo...\n\nyou need to connect a global property'),
-                            setPosition: pos => alert('demo: '+pos+'\n\nyou need to connect a global property'),
-                            setMedia: media => alert('demo... media id:'+media.id+', media url:'+media.url+'\n\nyou need to connect a global property'),
+                            reset: () => alert('demo...\nyou need to connect a global property'),
+                            setCover: () => alert('demo...\nyou need to connect a global property'),
+                            setRepeat: () => alert('demo...\nyou need to connect a global property'),
+                            setPosition: pos => alert('demo: '+pos+'\nyou need to connect a global property'),
+                            setMedia: media => alert('demo... media id:'+media.id+', media url:'+media.url+'\nyou need to connect a global property'),
                             iscover: true,
                             isrepeat: false,
                             coord: 'center center',
@@ -460,7 +452,6 @@ recordblock(
     save: props => { return (
 
         make('div',{
-            saved:true,
             style:{
                 background:'var(--base)',
                 padding:'25px',
@@ -469,12 +460,10 @@ recordblock(
         },[
 
             make('h2',{
-                saved:true,
                 style:{margin:'5px'}
             },'- editor inspector test-'),
 
             make('p',{
-                saved:true,
                 style:{margin:'5px'}
             },'in editor test to see the inspector parts')
 

@@ -70,58 +70,30 @@
 
 
             case 'inspector-group' :
-
-                return __ ( _inspector_group,{}, __ ('div',{className:'components-panel__wrapper'},params))
-
-
+            case 'inspector-group --wide' :
             case 'inspector-group --aligned' :
-
-                return __ ( _inspector_group,{}, __ ('div',{className:'components-panel__wrapper --aligned'},params))
-    
-
             case 'inspector-group --justified' :
 
-                return __ ( _inspector_group,{}, __ ('div',{className:'components-panel__wrapper --justified'},params))
-
-
-            case 'inspector-group --wide' :
-
-                return __ ( _inspector_group,{}, __ ('div',{className:'components-panel__wrapper --wide'},params))
+                return __ ( _inspector_group, {}, __ ( 'div', {className:'components-panel__wrapper '+String(prototype.split('group')[1])}, params ) )
 
 
             case 'inspector-split' : case '====' :
 
                 return __ ( _split,{className:'linesplit'})
-                    
+
 
             case 'inspector-space':case '----' :
 
                 return __ ('div',{className:'dashspace'})
                 
 
-            case 'inspector-grid-2' :
+            case 'inspector-grid-2':
+            case 'inspector-grid-3':
+            case 'inspector-grid-4':
+            case 'inspector-grid-5':
+            case 'inspector-grid-6':
 
-                return __ ('div', {className:'inspector-block-grid-2'}, params)
-
-
-            case 'inspector-grid-3' :
-
-                return __ ('div', {className:'inspector-block-grid-3'}, params)
-
-
-            case 'inspector-grid-4' :
-
-                return __ ('div', {className:'inspector-block-grid-4'}, params)
-
-
-            case 'inspector-grid-5' :
-
-                return __ ('div', {className:'inspector-block-grid-5'}, params)
-
-
-            case 'inspector-grid-6' :
-
-                return __ ('div', {className:'inspector-block-grid-6'}, params)
+                return __ ('div', {className:'inspector-block-grid'+prototype.split('grid')[1]}, params)
 
 
             case 'inspector-card' :
@@ -158,6 +130,7 @@
                     __ ('details',{className:'components-panel__tab'},[
 
                         __ ('summary',{}, (
+
 
                                 params.texticon ?
                                     __ ('p',{className:'tab-icon'},params.icon) :
@@ -222,16 +195,33 @@
 
             case 'edit-texts' :
 
-                if (params.saved) { return __ ( _ui_texts.Content, params, nested) }
-                else              { return __ ( _ui_texts, params, nested)}
+                if (!params.update) {
+
+                    params.value==undefined?console.log("_ui_texts prototype message: gutenberg rich text value result undefined. Please set attributes:{ YOURCONTENT: { type:'string' } }"):null
+                    return  __ ( _ui_texts.Content, params, null)
+
+                } else {
+
+                    return  __ ( _ui_texts, {
+                        tagName: params.tag,
+                        multiline: params.break, 
+                        preserveWhiteSpace: !params.unspace,
+                        allowedFormats: params.formats,
+                        placeHolder: params.placeholder,
+                        className: params.classes,
+                        style:params.style,
+                        value: params.value,
+                        onChange: data => ( params.update(String(data)) )
+                    })
+
+                }
 
             /*--------------------------------------------*/
 
 
             case 'nesting-group' :
-
-                if (params.saved)   return __ ( 'div', {} , __( _block_contents.Content ) )
-                else                return __ ( 'div', { className: 'nesting-selector-container' }, __ ( _block_contents , params))
+                if (!params.formats) return __ ( 'div', {} , __( _block_contents.Content ) ) 
+                else                 return __ ( 'div', { className: 'nesting-selector-container' }, __ ( _block_contents , params.formats!='all'?{allowedBlocks:params.formats}:null ))
                 
 
             /*--------------------------------------------*/
@@ -240,15 +230,24 @@
             case 'ui-textarea' :
 
                 return __ (_ui_textarea, {
+
                     placeHolder: params.placeHolder,
+                    style:params.style,
+                    className: params.class,
                     value: params.val,
                     onChange: newtext => props.update(newtext)
+
                 })
 
 
             case 'ui-aligner' :
 
-                return __ ( _ui_alignbar, params, null)
+                return __ ( _ui_alignbar, {
+                    
+                    value: params.value,
+                    onChange: data => params.update( data) 
+
+                }, null)
 
 
             case 'ui-btn-group' :
@@ -256,74 +255,118 @@
                 return __ ( _ui_btn_group, {}, params )
 
 
-            case 'ui-button' :
+            case 'ui-button':
 
-                return __ ( _ui_btn, params,  params.label )
+                return __ ( params.icon && !params.label ? _ui_btnicon : _ui_btn, {
+                    icon: params.icon,
+                    label: params.label,
+                    value: params.value,
+                    style:params.style,
+                    className: params.class,
+                    onClick: data => params.update(data)
+                }, params.label )
 
 
-            case 'ui-button --featuredimage' :
+            case 'ui-featuredimage' :
 
                 return __ ( _ui_feauteredImg,{},null )
 
 
-            case 'ui-button --iconic' :
-
-                return __ ( _ui_btnicon, params, null )
-
-
             case 'ui-checkbox' :
 
-                return __ ( _ui_checkbox, params, null )
+                return __ ( _ui_checkbox, {
+
+                    label: params.label,
+                    help: params.help,
+                    checked:params.status,
+                    onClick: () => { params.update( !params.status?true:false ) }
+
+                }, null )
 
 
             case 'ui-radiobox' :
 
-                return __ ( _ui_radiobox, params, null )
+                return __ ( _ui_radiobox, {
+
+                    selected: params.value,
+                    options: params.list,
+                    onChange: refresh => params.update( refresh ) 
+
+                }, null )
 
 
             case 'ui-range' :
-
-                return __ ( _ui_range , params, null )
-
-
             case 'ui-range-compact' :
 
-                return __ ( _ui_range , ( params.className+=' compact', params ), null )
+                return __ ( _ui_range , {
+
+                    className:( prototype.includes('-compact') ? params.className+=' compact' : null ),
+                    label:params.label,
+                    value:params.value,
+                    min:params.min,
+                    max:params.max,
+                    step:params.step,
+                    marks:params.list,
+                    onChange: data => params.update(data)
+
+                } , null )
 
 
             case 'ui-selectbox' :
 
-                return __ ( _ui_select, params, null )
+                return __ ( _ui_select, {
+            
+                    label: params.label,
+                    value: params.value,
+                    multiple:params.multiple,
+                    options: params.list, 
+                    onChange: data => params.update( data )
+
+                }, null )
 
 
             case 'ui-togglebox' :
 
-                let optresult = [];  for ( let _opt of params.opts ) optresult.push(  __ ( _ui_toggleslide_content, { value:_opt.value, label:_opt.label } ) )
+                let optresult = [];  for ( let _opt of params.list ) optresult.push(  __ ( _ui_toggleslide_content, { value:_opt.value, label:_opt.label } ) )
 
-                return __ ( _ui_toggleslide, _data({
-                            label:params.label,
-                            value:params.value,
-                            isBlock: true,
-                            onChange: selected => (selected)
-                        }) , optresult )
+                return __ ( _ui_toggleslide, {
+
+                    label:params.label,
+                    value:params.value,
+                    isBlock: true,
+                    onChange: data => params.update(data)
+
+                } , optresult )
 
 
             case 'ui-switchbox' :
 
                 return __ ( _ui_switcher , {
+
                     checked: params.status,
-                    onChange : status => params.update( !params.status?true:false )
+                    onClick : () => { params.update( !params.status?true:false ) }
+
                 }, null)
 
 
             case 'ui-color-picker' :
 
-                return __ ( _ui_color,params, null )
+                return __ ( _ui_color,{
+
+                    disableAlpha: params.alpha,
+                    value: params.value,
+                    defaultValue: ! params.default ? '#000000' : params.default,
+                    onChangeComplete: data => params.update(data.hex)
+
+                }, null )
 
 
             case 'ui-color-palette' :
 
-                return __ ( _ui_palette,params, null )
+                return __ ( _ui_palette, {
+                    colors: params.colors,
+                    onChange: data => params.update(data)
+                }, null )
 
 
             case 'ui-positioner' :
@@ -332,7 +375,7 @@
 
                             __ ('p',{},'Set anchoring'),
 
-                            __ ( _ui_radiobox, _data({
+                            __ ( _ui_radiobox, {
                                 selected: params.actualType,
                                 options: [
                                     { label: 'standard anchor', value: 'relative' },
@@ -341,15 +384,15 @@
                                     { label: 'respect screen', value: 'fixed' },
                                 ],
                                 onChange: data => params.setPositionType(data)
-                            })),
+                            }),
 
-                            __ ('div',{className:'inspector-space'}),
+                            __ ('div',{className:'dashspace'}),
 
                             __ ('p',{},'Set position of object'),
 
                             __ ('div',{className:'ui-positioner-grid'},
 
-                                __ ( _ui_radiobox, _data({
+                                __ ( _ui_radiobox, {
                                     selected: params.actualCoord,
                                     options: [
                                         { label: '', value: 'top-left' },
@@ -363,7 +406,7 @@
                                         { label: '', value: 'bottom-right' },
                                     ],
                                     onChange: data => params.setPositionCoord(data) 
-                                }),null)
+                                },null)
 
                             )
 
@@ -374,7 +417,7 @@
 
                 return  __ ('div',{className:'ui-setmargins'},[
 
-                            __ ( _ui_range, _data({
+                            __ ( _ui_range, {
                                 label:"top",
                                 value: parseInt(params.top),
                                 className:'compact',
@@ -385,9 +428,9 @@
                                         params.top+'% '+params.right+'% '+params.bottom+'% '+params.left+'px'
                                     )
                                 }
-                            })),
+                            }),
 
-                            __ ( _ui_range, _data({
+                            __ ( _ui_range, {
                                 label:"right",
                                 value:parseInt(params.right),
                                 className:'compact',
@@ -398,9 +441,9 @@
                                         params.top+'% '+params.right+'% '+params.bottom+'% '+params.left+'px'
                                     )
                                 }
-                            })),
+                            }),
 
-                            __ ( _ui_range, _data({
+                            __ ( _ui_range, {
                                 label:"bottom",
                                 value: parseInt(params.bottom),
                                 className:'compact',
@@ -411,9 +454,9 @@
                                         params.top+'% '+params.right+'% '+params.bottom+'% '+params.left+'px'
                                     )
                                 }
-                            })),
+                            }),
 
-                            __ ( _ui_range, _data({
+                            __ ( _ui_range, {
                                 label:"left",
                                 value: parseInt(params.left),
                                 className:'compact',
@@ -424,7 +467,7 @@
                                         params.top+'% '+params.right+'% '+params.bottom+'% '+params.left+'px'
                                     )
                                 }
-                            }))
+                            })
 
                         ])
 
@@ -460,7 +503,7 @@
                                 ),
                             ),
 
-                            __ ('div',{className:'inspector-space'}),
+                            __ ('div',{className:'dashspace'}),
 
                             __ ('div',{className:'components-panel__wrapper --justified'},
 
@@ -478,7 +521,7 @@
 
                             ),
 
-                            __ ('div',{className:'inspector-space'}),
+                            __ ('div',{className:'dashspace'}),
 
                             __ ( _ui_select, {
                                 multiple:false,
@@ -497,7 +540,7 @@
                                 onChange: newposition => { params.setPosition(newposition) }
                             }),
 
-                            __ ('div',{className:'inspector-space'}),
+                            __ ('div',{className:'dashspace'}),
 
                             __ ('div',{className:'image-container-data'},[
 
@@ -527,9 +570,9 @@
 
             default : 
 
-                if(params.saved==true)
-                    return __ ( prototype, _data.save(params), nested )
-                else
+                // if(params.saved==true)
+                //     return __ ( prototype, _data.save(params), nested )
+                // else
                     return __ ( prototype, params,  nested )
 
         }

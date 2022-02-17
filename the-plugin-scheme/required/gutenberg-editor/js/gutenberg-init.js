@@ -24,6 +24,7 @@
     //:
     //: a good article :
     //:         https://mkaz.blog/wordpress/gutenberg-blocks-without-the-build-step/
+    //:         https://mediaron.com/how-to-enable-gutenberg-block-previews/
     //:
     //: registerBlock info:
     //:         https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
@@ -45,7 +46,7 @@
 
     const _block_control          = wp.editor.BlockControls
     const _block_contents         = wp.blockEditor.InnerBlocks
-    const _data                   = wp.blockEditor.useBlockProps
+    // const _data                   = wp.blockEditor.useBlockProps // deprecated
 
     const _inspector              = wp.blockEditor.InspectorControls
     const _inspector_container    = wp.components.Panel

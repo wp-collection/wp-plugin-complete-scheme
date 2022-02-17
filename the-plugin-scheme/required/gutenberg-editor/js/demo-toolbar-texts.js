@@ -46,6 +46,7 @@ recordblock(
         icon: 'superhero-alt',
         category: 'scheme-blocks',
         description: 'A demo of repicable examples for richtext toolbar .',
+        example: {},
         
         attributes: {
 
@@ -70,7 +71,7 @@ recordblock(
 
                     make('ui-aligner',{
                         value: 'center',
-                        onChange: refresh => alert('demo: '+refresh )
+                        update: data => alert('demo: '+data )
                     }),
 
                     make('ui-selectbox',{
@@ -78,7 +79,7 @@ recordblock(
                         value: 100,
                         // multiple:true,
                         options: [{ label: 'Big', value: '250' }, { label: 'Medium', value: '150' }, { label: 'Small', value: '75' }],
-                        onChange: refresh => alert('demo: '+refresh)
+                        update: data => alert('demo: '+data)
                     }),
 
                 ]),
@@ -101,26 +102,26 @@ recordblock(
 
                     make('edit-texts',{
 
-                        tagName: 'h3',
-                        multiline:'br',
+                        tag: 'h3',
+                        break:'br',
                         allowedFormats: formatslist,
-                        className:'text-center',
+                        class:'text-center',
                         style: { fontWeight:'bold' },
                         placeholder: '- toolbar: text editor -',
                         value: props.attributes.demo_title,
-                        onChange: refresh => {  props.setAttributes( { demo_title: refresh } ) },
+                        update: data => {  props.setAttributes( { demo_title: data } ) },
 
                     }),
 
                     make('edit-texts',{
 
-                        tagName: 'p',
-                        multiline:'p',
-                        className:'text-center',
+                        tag: 'p',
+                        break:'p',
+                        class:'text-center',
                         allowedFormats: formatslist,
                         placeholder: 'if you are in editor, click this editable text box',
                         value: props.attributes.demo_paragraph,
-                        onChange: refresh => {  props.setAttributes( { demo_paragraph: refresh } ) },
+                        update: data => {  props.setAttributes( { demo_paragraph: data } ) },
 
                     })
 
@@ -134,7 +135,6 @@ recordblock(
         save: props => { return (
     
             make('div',{
-                saved:true,
                 style:{
                     background:'var(--base)',
                     padding:'25px',
@@ -143,13 +143,12 @@ recordblock(
             },[
  
                 make('edit-texts',{
-                    saved:true,
                     tagName: 'h2',
                     value:props.attributes.demo_title
                 }),
  
                 make('edit-texts',{
-                    saved:true,
+                    tagName: 'p',
                     value:props.attributes.demo_paragraph
                 })
  

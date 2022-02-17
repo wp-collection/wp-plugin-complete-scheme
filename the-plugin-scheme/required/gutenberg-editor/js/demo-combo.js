@@ -16,6 +16,7 @@ recordblock(
 	icon: 'superhero-alt',
 	category: 'scheme-blocks',
 	description: 'A demo of simple fac-simile layout... see more inside the github repo.',
+	example: {},
 
 	attributes: {
 
@@ -35,23 +36,23 @@ recordblock(
 
 			make('edit-texts',{
 
-				tagName: 'h1',
-				allowedFormats: [ 'core/bold' ],
+				tag: 'h1',
+				formats: [ 'core/bold' ],
 				value: props.attributes.demo_title,
 				placeholder: 'type anything here',
-				onChange: refresh => { props.setAttributes( { demo_title: refresh } ) },
+				update: data => { props.setAttributes( { demo_title: data } ) },
 
 			}),
 
 			make('edit-texts',{
 
-				tagName: 'p',
-				// multiline: false, 
-				// preserveWhiteSpace: false,
-				allowedFormats: [ 'core/bold', 'core/italic' ],
+				tag: 'p',
+				// break: 'br',
+				// unspace: false,
+				formats: [ 'core/bold', 'core/italic' ],
 				value: props.attributes.demo_paragraph,
 				placeholder: 'type anything here',
-				onChange: refresh => { props.setAttributes( { demo_paragraph: refresh } ) },
+				update: data => { props.setAttributes( { demo_paragraph: data } ) },
 
 			})
 		
@@ -61,16 +62,14 @@ recordblock(
 
 	save: props => { return (
 
-		make('div',{saved:true},[
+		make('div',{},[
 
 			make('edit-texts',{
-				saved:true,
 				tagName: 'h1',
 				value: props.attributes.demo_title
 			}),
 
 			make('edit-texts',{
-				saved:true,
 				tagName: 'p',
 				value: props.attributes.demo_paragraph
 			})

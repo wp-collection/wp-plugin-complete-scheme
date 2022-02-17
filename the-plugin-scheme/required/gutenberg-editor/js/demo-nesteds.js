@@ -23,6 +23,7 @@ recordblock(
     icon: 'superhero-alt',
     category: 'scheme-blocks',
     description: 'Add a standard sub contents or layouts box',
+	example: {},
 
 	attributes: {},
 
@@ -31,9 +32,7 @@ recordblock(
         make('editor',[
 
             make('nesting-group',{
-                // extra params:
-                // template:[ [ 'core/heading', { placeholder: 'Test Title' } ], ... ],
-                // allowedBlocks:['core/columns','core/heading']
+                formats: 'all', // ['core/columns','core/heading',...]
             })
 
         ])
@@ -42,10 +41,8 @@ recordblock(
 
     save: props => { return (
 
-        make('div',{
-            saved:true
-        },[
-            make('nesting-group',{saved:true})
+        make('div',{},[
+            make('nesting-group',{})
         ])
 
     )}

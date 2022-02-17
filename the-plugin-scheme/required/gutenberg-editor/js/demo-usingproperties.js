@@ -42,6 +42,7 @@ recordblock(
     icon: 'superhero-alt',
     category: 'scheme-blocks',
     description: 'manca: "carica un banner dentro HELLO SCHEMA", il margine nelle posizioni, le colonne, le griglie?',
+	example: {},
     
     attributes: {
         
@@ -90,7 +91,7 @@ recordblock(
                     icon: 'info',
                     help:'this is an exempe of custom button in custom toolbar!',
                     className:"my-custom-button",
-                    onClick: () => { alert('pressed button') }
+                    update: () => { alert('pressed button') }
                 }),
                 
             ]),
@@ -161,7 +162,7 @@ recordblock(
                             label:"standard",
                             value: props.attributes.opt_box_standard,
                             className: props.attributes.opt_box_standard?'is-active':'',
-                            onClick: () => {
+                            update: () => {
                                 props.setAttributes({ 
                                     opt_box_standard: true,
                                     opt_box_center: false,
@@ -175,7 +176,7 @@ recordblock(
                             label:"centered",
                             value: props.attributes.opt_box_center,
                             className: props.attributes.opt_box_center?'is-active':'',
-                            onClick: () => {
+                            update: () => {
                                 props.setAttributes({
                                     opt_box_standard: false,
                                     opt_box_center: true,
@@ -189,7 +190,7 @@ recordblock(
                             label:"widebox",
                             value: props.attributes.opt_box_wide,
                             className: props.attributes.opt_box_wide?'is-active':'',
-                            onClick: () => {
+                            update: () => {
                                 props.setAttributes({
                                     opt_box_standard: false,
                                     opt_box_center: false,
@@ -203,7 +204,7 @@ recordblock(
                             label:"fullpage",
                             value: props.attributes.opt_box_full,
                             className: props.attributes.opt_box_full?'is-active':'',
-                            onClick: () => {
+                            update: () => {
                                 props.setAttributes({
                                     opt_box_standard: false,
                                     opt_box_center: false,
@@ -430,8 +431,6 @@ recordblock(
     save: props => { return (
 
         make('div',{
-            saved:true,
-            value:props.attributes.content,
             className:
                 props.attributes.opt_box_center?'aligncenter':
                 props.attributes.opt_box_wide?'alignwide':
@@ -453,8 +452,7 @@ recordblock(
             }
         },[
 
-            make('edit-texts-contents',{
-                saved:true,
+            make('edit-texts',{
                 value:props.attributes.content_title,
                 tagName:'h1',
                 disabled:props.attributes.css_disabling?'true':null,

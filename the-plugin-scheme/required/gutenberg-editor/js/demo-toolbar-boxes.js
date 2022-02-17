@@ -13,6 +13,7 @@ recordblock(
         icon: 'superhero-alt',
         category: 'scheme-blocks',
         description: 'A demo of repicable examples for toolbar for a global boxes settings.',
+        example: {},
 
         attributes: {
 
@@ -30,7 +31,7 @@ recordblock(
                         make('ui-button',{
                             label:'toolbar!',
                             className:"my-custom-button",
-                            onClick: () => alert('pressed button')
+                            update: data => alert('demo, button pressed')
                         }),
                         
                     ]), 
@@ -41,7 +42,7 @@ recordblock(
                             icon: 'info',
                             help:'this is an exempe of custom button in custom toolbar!',
                             className:"my-custom-button",
-                            onClick: () => alert('pressed button')
+                            update: data => alert('demo, button pressed')
                         }),
                         
                     ]),
@@ -50,19 +51,15 @@ recordblock(
                         make('ui-checkbox',{
                             // label:'Visibility',
                             // help:'if is visible or not (demo)', not raccomended
-                            checked:props.attributes.data_your_status,
-                            onClick: status => {
-                                status=!props.attributes.data_your_status;
-                                alert("(demo) box visibility is now: "+status);
-                                props.setAttributes({ data_your_status:!!status })
-                            }
+                            checked:false,
+                            update: data => alert('demo, canging to:  '+data)
                         }),
                     ]),
     
                     make('toolbar-group',[
                         make('ui-switchbox',{
                             status:false,
-                            update : refresh => alert('demo... '+refresh+'\n\nyou need to connect a global property')
+                            update : data => alert('(demo) canging to:  '+data)
                         }),
                     ]),
     
@@ -71,25 +68,24 @@ recordblock(
                         make('ui-togglebox',{
                             label: 'my label',
                             value: 'm',
-                            opts:[
+                            list:[
                                 { value: 's', label: 'S' },
                                 { value: 'm', label: 'M' },
                                 { value: 'l', label: 'L' }
-                            ]
+                            ],
+                            update: data => alert('demo, actual selected :'+data+'\nyou need to connect a property')
                         }),
                     ]),
 
                     make('toolbar-group',[
 
                         make('ui-radiobox',{
-                            selected: 'one',
-                            options: [
+                            value: 'one',
+                            list: [
                                 { label: 'A', value: 'one' },
                                 { label: 'B', value: 'two' },
                             ],
-                            onChange: refresh => { 
-                                alert('demo - actual selected :'+refresh+'\n\nyou need to connect a global property')
-                            }
+                            update: data => alert('demo, actual selected :'+data+'\nyou need to connect a property')
                         }),
 
                     ]),
@@ -98,15 +94,15 @@ recordblock(
     
                         make('ui-aligner',{
                             value: 'center',
-                            onChange: refresh => alert('demo: '+refresh )
+                            update: data => alert('demo: '+data )
                         }),
     
                         make('ui-selectbox',{
                             // label: "Font size",
-                            value: 100,
                             // multiple:true,
-                            options: [{ label: 'Big', value: '250' }, { label: 'Medium', value: '150' }, { label: 'Small', value: '75' }],
-                            onChange: refresh => alert('demo: '+refresh)
+                            value: 100,
+                            list: [{ label: 'Big', value: '250' }, { label: 'Medium', value: '150' }, { label: 'Small', value: '75' }],
+                            update: data => alert('demo: '+data)
                         }),
     
                     ]),
@@ -117,10 +113,10 @@ recordblock(
                             icon:'color-picker'
                         },[
                             make('ui-color-picker',{
-                                disableAlpha: false,
+                                alpha: false,
                                 value: '#454545',
-                                defaultValue: '#000000',
-                                onChangeComplete: refresh => alert('demo...'+refresh.hex+'\n\nyou need to connect a global property')
+                                default: '#000000',
+                                update: data => alert('demo: '+data+'\nyou need to connect a property')
                             })
                         ]),
     
@@ -132,13 +128,13 @@ recordblock(
                             icon:'color-picker'
                         },[
                             make('ui-color-palette',{
-                                colors: [
+                                colors:[
                                     { name: 'black', color: '#202020' },
                                     { name: 'white', color: '#ffffff' },
                                     { name: 'red', color: '#ff1212' },
                                     { name: 'blue', color: '#122fff' },
                                 ],
-                                onChange: refresh => alert('demo...'+refresh+'\n\nyou need to connect a global property')
+                                update: data => alert('demo: '+data+'\nyou need to connect a property')
                             })
                         ]),
     
@@ -150,11 +146,11 @@ recordblock(
                             icon:'format-image'
                         },[
                             make('ui-background',{
-                                reset: () => alert('demo...\n\nyou need to connect a global property'),
-                                setCover: () => alert('demo...\n\nyou need to connect a global property'),
-                                setRepeat: () => alert('demo...\n\nyou need to connect a global property'),
-                                setPosition: pos => alert('demo: '+pos+'\n\nyou need to connect a global property'),
-                                setMedia: media => alert('demo... media id:'+media.id+', media url:'+media.url+'\n\nyou need to connect a global property'),
+                                reset: () => alert('demo: \nyou need to connect a property'),
+                                setCover: () => alert('demo: \nyou need to connect a property'),
+                                setRepeat: () => alert('demo: \nyou need to connect a property'),
+                                setPosition: data => alert('demo: '+data+'\nyou need to connect a property'),
+                                setMedia: data => alert('demo:  media id:'+data.id+', media url:'+data.url+'\nyou need to connect a property'),
                                 iscover: true,
                                 isrepeat: false,
                                 coord: 'center center',
@@ -172,8 +168,8 @@ recordblock(
                         },[
 
                             make('ui-positioner',{
-                                setPositionType: refresh => alert('demo:'+refresh+'\n\nyou need to connect a global property'),
-                                setPositionCoord: refresh => alert('demo:'+refresh+'\n\nyou need to connect a global property'),
+                                setPositionType: data => alert('demo:'+data+'\nyou need to connect a property'),
+                                setPositionCoord: data => alert('demo:'+data+'\nyou need to connect a property'),
                                 actualCoord: 'relative',
                                 actualType: 'center-center',
                             }),
@@ -185,7 +181,7 @@ recordblock(
                                 right:  '0',
                                 bottom: '0',
                                 left: '0',
-                                update: (dir,px,shorthand) => alert('demo...\n\nyou need to connect a global property')
+                                update: (dir,px,shorthand) => alert('demo: \nyou need to connect a property')
                             }),
 
                         ]),
@@ -198,7 +194,7 @@ recordblock(
                             value: '10',
                             min:0,
                             max:100,
-                            onChange: refresh => alert('demo: '+refresh)
+                            update: data => alert('demo: '+data)
                         }),
                     ]),
     
@@ -206,13 +202,13 @@ recordblock(
     
                         make( 'ui-dropdown', { icon:'editor-insertmore', label:'more' },[
                             [
-                                { title: 'Up', icon: 'arrow-up', onClick: () => alert( 'up' )},
-                                { title: 'Right', icon: 'arrow-right', onClick: () => alert( 'right' )}
+                                { title: 'Up', icon: 'arrow-up', update: () => alert( 'up' )},
+                                { title: 'Right', icon: 'arrow-right', update: () => alert( 'right' )}
                             ],
 
                             [
-                                { title: 'Down', icon: 'arrow-down', onClick: () => alert( 'down' ) },
-                                { title: 'Left', icon: 'arrow-left', onClick: () => alert( 'left' ),}
+                                { title: 'Down', icon: 'arrow-down', update: () => alert( 'down' ) },
+                                { title: 'Left', icon: 'arrow-left', update: () => alert( 'left' ),}
                             ],
                         ]),
 
@@ -252,7 +248,6 @@ recordblock(
         save: props => { return (
 
             make('div',{
-                saved:true,
                 style:{
                     background:'var(--base)',
                     padding:'25px',
@@ -260,13 +255,9 @@ recordblock(
                 }
             },[
 
-                make('h2',{
-                    saved:true
-                },'- toolbar: box editor params -'),
+                make('h2',{},'- toolbar: box editor params -'),
 
-                make('p',{
-                    saved:true
-                },'if you are in editor, click this simple concept box')
+                make('p',{},'if you are in editor, click this simple concept box')
 
             ])
 
