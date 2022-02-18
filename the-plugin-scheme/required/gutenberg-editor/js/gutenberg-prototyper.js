@@ -668,20 +668,20 @@
 
             default :
 
-                if(document.createElement(prototype.toUpperCase()) != "[object HTMLUnknownElement]")
+                if(document.createElement(prototype.toUpperCase()) != "[object HTMLUnknownElement]") {
+ 
+                    if (params.hasOwnProperty('classes')) {
+                        params.className = params.classes
+                        delete params.classes
+                    }
 
-                    return __ ( prototype, {
+                    return __ ( prototype, params, nested )
 
-                        className: params.classes,
-                        style:params.style,
-                        id:params.id,
+                } else {
 
-                    },  nested )
-
-                else
-                
                     console.log("WARNING: prototype is not html recognized or not prototype: ",prototype)
 
+                }
     
         } 
     }

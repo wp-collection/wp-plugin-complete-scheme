@@ -171,23 +171,23 @@ recordblock(
                         make('ui-button',{
                             icon: 'star-empty',
                             value: 'first',
-                            classes: props.attributes.test_selected!='first'?'':'is-active',
-                            update: () => props.setAttributes({test_selected:'first'})
+                            classes: props.attributes.demo_selected!='first'?'':'is-active',
+                            update: () => props.setAttributes({demo_selected:'first'})
                         }),
 
                         make('ui-button',{
                             icon: 'star-half',
                             value: 'second',
-                            classes: props.attributes.test_selected!='second'?'':'is-active',
-                            update: () => props.setAttributes({test_selected:'second'})
+                            classes: props.attributes.demo_selected!='second'?'':'is-active',
+                            update: () => props.setAttributes({demo_selected:'second'})
                         }),
 
                         make('ui-button',{
                             icon: 'star-filled',
                             label: 'this is test!',
                             value: 'third',
-                            classes: props.attributes.test_selected!='third'?'':'is-active',
-                            update: () => props.setAttributes({test_selected:'third'})
+                            classes: props.attributes.demo_selected!='third'?'':'is-active',
+                            update: () => props.setAttributes({demo_selected:'third'})
                         })
 
                     ]),
@@ -200,7 +200,7 @@ recordblock(
                     make('ui-checkbox',{
                         label:"demo check true false",
                         checked:false,
-                        update: data => alert('demo - actual status is:'+data+'\nyou need to connect a global property')
+                        update: data => alert('demo.... use data for change status\nyou need to connect a global property')
                     }),
 
                     make('----'),
@@ -237,7 +237,7 @@ recordblock(
 
                     make('ui-switchbox',{
                         status:false,
-                        update : data => alert('demo... '+data+'\nyou need to connect a global property')
+                        update : data => alert('demo... changing to '+data+'\nyou need to connect a global property')
                     }),
 
                     make('----'),
@@ -250,31 +250,30 @@ recordblock(
                         min:0,
                         max:100,
                         step:10,
-                        marks:[
+                        list:[
                             { value: 0, label: '0' },
                             { value: 50, label: '50', },
                             { value: 100, label: '100', },
                         ],
-                        update: data => alert('demo - actual status is:'+data.value+'\nyou need to connect a global property')
+                        update: data => alert('demo - changing to '+data+'\nyou need to connect a global property')
                     }),
 
                     make('----'),
 
                     make('p',{},'sliders (compact)'),
 
-                    make('ui-range',{
+                    make('ui-range-compact',{
                         label:'label',
-                        classes:'compact',
                         value: 50,
                         min:0,
                         max:100,
                         step:1,
-                        marks:[
+                        list:[
                             { value: 0, label: '0' },
                             { value: 50, label: '50', },
                             { value: 100, label: '1', },
                         ],
-                        update: data => alert('demo - actual status is:'+data.value+'\nyou need to connect a global property')
+                        update: data => alert('demo - actual status is: '+data+'\nyou need to connect a global property')
                     }),
 
                     make('===='),
@@ -287,7 +286,7 @@ recordblock(
                             { label: 'medium', value: 'm' },
                             { label: 'big', value: 'b' }
                         ],
-                        update: data => alert('demo - actual status is:'+data.value+'\nyou need to connect a global property')
+                        update: data => alert('demo - actual status is: '+data+'\nyou need to connect a global property')
                     }),
 
                 ]),
@@ -331,6 +330,7 @@ recordblock(
                 make('inspector-group --wide',[
 
                     make('ui-positioner',{
+                        update: data => (alert('demo...data is in console\nyou need to connect a global property'),console.log(data)),
                         update_type: data => alert('demo:'+data+'\nyou need to connect a global property'),
                         update_coord: data => alert('demo:'+data+'\nyou need to connect a global property'),
                         coord: 'relative',
@@ -358,7 +358,7 @@ recordblock(
                         right:  '0',
                         bottom: '0',
                         left: '0',
-                        update: (dir,px,shorthand) => alert('demo...\nyou need to connect a global property')
+                        update: (dir,px,shorthand) => alert('demo... on '+dir+' of '+px+', css: '+shorthand+'\nyou need to connect a global property')
                     }),
 
                 ]),
@@ -374,7 +374,6 @@ recordblock(
                         make('ui-color-picker',{
                             alpha: false,
                             value: '#454545',
-                            default: '#000000',
                             update: data => alert('demo...'+data+'\nyou need to connect a global property')
                         })
                     ]),
@@ -406,7 +405,7 @@ recordblock(
                             reset: () => alert('demo...\nyou need to connect a global property'),
                             update_cover: () => alert('demo...\nyou need to connect a global property'),
                             update_repeat: () => alert('demo...\nyou need to connect a global property'),
-                            update_position: data => alert('demo: '+pos+'\nyou need to connect a global property'),
+                            update_position: data => alert('demo: '+data+'\nyou need to connect a global property'),
                             update_media: data => alert('demo... media id:'+data.id+', media url:'+data.url+'\nyou need to connect a global property'),
                             iscover: true,
                             isrepeat: false,

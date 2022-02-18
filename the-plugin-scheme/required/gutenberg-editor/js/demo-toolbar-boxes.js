@@ -76,7 +76,7 @@ recordblock(
                             update: data => alert('demo, actual selected :'+data+'\nyou need to connect a property')
                         }),
                     ]),
-
+ 
                     make('toolbar-group',[
 
                         make('ui-radiobox',{
@@ -165,6 +165,7 @@ recordblock(
                         },[
 
                             make('ui-positioner',{
+                                update: data => (alert('demo...data is in console\nyou need to connect a global property'),console.log(data)),
                                 update_type: data => alert('demo:'+data+'\nyou need to connect a property'),
                                 update_coord: data => alert('demo:'+data+'\nyou need to connect a property'),
                                 coord: 'relative',
@@ -178,7 +179,7 @@ recordblock(
                                 right:  '0',
                                 bottom: '0',
                                 left: '0',
-                                update: (dir,px,shorthand) => alert('demo: \nyou need to connect a property')
+                                update: (dir,px,shorthand) => alert('demo... on '+dir+' of '+px+', css: '+shorthand+'\nyou need to connect a property')
                             }),
 
                         ]),
