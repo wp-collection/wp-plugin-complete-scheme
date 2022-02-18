@@ -56,7 +56,36 @@
     
                 return __ ( _toolbar_group, {}, params)
 
+                
 
+            case 'toolbar-tab' :
+
+                let tbid = _generated_id()
+
+                return  __ ( 'div', {
+                            className:'toolbar-tab'
+                        },[
+                            __ ( _ui_btn, {
+
+                                icon: params.icon,
+                                id: tbid,
+
+                                onClick: () => {
+
+                                    let tab = document.getElementById(tbid).parentNode.classList;
+
+                                    tab.contains('has-active')?
+                                        tab.remove('has-active'):
+                                        tab.add('has-active')
+
+                                }
+
+                            } ),
+
+                            __ ( 'div', { className: 'tab-contents' }, nested )
+
+                        ],null)
+    
             /*--------------------------------------------*/
 
 
@@ -128,7 +157,13 @@
 
                 return __ ('div',{},[
 
-                    __ ('details',{className:'components-panel__tab'},[
+                    __ ('details',{
+
+                        id:params.id,
+                        className:'components-panel__tab '+params.classes,
+                        style: params.style,
+
+                    },[
 
                         __ ('summary',{}, (
 
@@ -161,38 +196,6 @@
             case 'inspector-banner' :
 
                 return __ ( 'img',{style:{width:'100%'},src:params.src})
-
-                
-            /*--------------------------------------------*/
-
-            case 'toolbar-tab' :
-
-                let tbid = _generated_id()
-
-                return  __ ( 'div', {
-                            className:'toolbar-tab'
-                        },[
-                            __ ( _ui_btn, {
-
-                                icon: params.icon,
-                                id: tbid,
-
-                                onClick: () => {
-
-                                    let tab = document.getElementById(tbid).parentNode.classList;
-
-                                    tab.contains('has-active')?
-                                        tab.remove('has-active'):
-                                        tab.add('has-active')
-
-                                }
-
-                            } ),
-
-                            __ ( 'div', { className: 'tab-contents' }, nested )
-
-                        ],null)
-
 
             /*--------------------------------------------*/
 
@@ -253,9 +256,9 @@
                     id:params.id,
 
                     placeHolder: params.placeHolder,
-                    value: params.val,                    
+                    value: params.value,                    
 
-                    onChange: newtext => props.update(newtext)
+                    onChange: data => props.update(data)
 
                 })
 
@@ -276,7 +279,13 @@
 
             case 'ui-btn-group' :
 
-                return __ ( _ui_btn_group, {}, params )
+                return __ ( _ui_btn_group, {
+
+                    className: params.classes,
+                    style:params.style,
+                    id:params.id,
+
+                }, params )
 
 
             case 'ui-button':
@@ -304,6 +313,8 @@
                     style:params.style,
                     id:params.id,
 
+                    onChangeEnd: data => props.update(data)
+
                 },null )
 
 
@@ -317,7 +328,7 @@
 
                     label: params.label,
                     help: params.help,
-                    checked:params.status,
+                    checked:params.value,
 
                     onClick: () => { params.update( !params.status?true:false ) }
 
@@ -335,7 +346,7 @@
                     selected: params.value,
                     options: params.list,
 
-                    onChange: refresh => params.update( refresh ) 
+                    onChange: data => params.update( data ) 
 
                 }, null )
 
@@ -407,9 +418,9 @@
                     style:params.style,
                     id:params.id,
 
-                    checked: params.status,
+                    checked: params.value,
 
-                    onClick : () => { params.update( !params.status?true:false ) }
+                    onClick : () => { params.update( !params.value?true:false ) }
 
                 }, null)
 
@@ -439,7 +450,7 @@
                     style:params.style,
                     id:params.id,
 
-                    colors: params.colors,
+                    colors: params.list,
 
                     onChange: data => params.update(data)
 
@@ -453,14 +464,14 @@
                             __ ('p',{},'Set anchoring'),
 
                             __ ( _ui_radiobox, {
-                                selected: params.actualType,
+                                selected: params.type,
                                 options: [
                                     { label: 'standard anchor', value: 'relative' },
                                     { label: 'sticky content', value: 'sticky' },
                                     { label: 'respect container', value: 'absolute' },
                                     { label: 'respect screen', value: 'fixed' },
                                 ],
-                                onChange: data => params.setPositionType(data)
+                                onChange: data => params.update_type(data)
                             }),
 
                             __ ('div',{className:'dashspace'}),
@@ -470,7 +481,7 @@
                             __ ('div',{className:'ui-positioner-grid'},
 
                                 __ ( _ui_radiobox, {
-                                    selected: params.actualCoord,
+                                    selected: params.coord,
                                     options: [
                                         { label: '', value: 'top-left' },
                                         { label: '', value: 'top-center' },
@@ -482,7 +493,7 @@
                                         { label: '', value: 'bottom-center' },
                                         { label: '', value: 'bottom-right' },
                                     ],
-                                    onChange: data => params.setPositionCoord(data) 
+                                    onChange: data => params.update_coord(data) 
                                 },null)
 
                             )
@@ -573,7 +584,7 @@
                                         multiple: false,        //set true for more images
                                         allowedprotos: 'image',  //set array for more images
                                         value: params.url,
-                                        onSelect: media => { params.setMedia(media) },
+                                        onSelect: media => { params.update_media(media) },
                                         render: ({ open }) => __( _ui_btn , {onClick:open} , (!params.url?'✚':'↻') )
                                     })
                                         
@@ -587,13 +598,13 @@
                                 __ ( _ui_checkbox,{
                                     label:'cover',
                                     checked:params.iscover,
-                                    onChange: () =>{  if(!params.iscover&&params.isrepeat){params.setRepeat()} params.setCover()  }
+                                    onChange: () =>{  if(!params.iscover&&params.isrepeat){params.update_repeat()} params.update_cover()  }
                                 }),
 
                                 __ ( _ui_checkbox, {
                                     label:'repeated',
                                     checked:params.isrepeat,
-                                    onChange: () =>{  if(params.iscover&&!params.isrepeat){params.setCover()} params.setRepeat() }
+                                    onChange: () =>{  if(params.iscover&&!params.isrepeat){params.update_cover()} params.update_repeat() }
                                 }),
 
                             ),
@@ -614,7 +625,7 @@
                                     { label: '⊥ |  bottom - center', value: 'bottom center' },
                                     { label: '⌞ |  bottom - left', value: 'bottom left' }
                                 ],
-                                onChange: newposition => { params.setPosition(newposition) }
+                                onChange: newposition => { params.update_position(newposition) }
                             }),
 
                             __ ('div',{className:'dashspace'}),

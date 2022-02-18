@@ -47,8 +47,7 @@ recordblock(
 			make('edit-texts',{
 
 				tag: 'p',
-				// break: 'br',
-				// unspace: false,
+				break: 'br',
 				formats: [ 'core/bold', 'core/italic' ],
 				value: props.attributes.demo_paragraph,
 				placeholder: 'type anything here',

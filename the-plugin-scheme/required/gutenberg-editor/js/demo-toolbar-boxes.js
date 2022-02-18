@@ -51,14 +51,14 @@ recordblock(
                         make('ui-checkbox',{
                             // label:'Visibility',
                             // help:'if is visible or not (demo)', not raccomended
-                            checked:false,
+                            value:false,
                             update: data => alert('demo, changing to:  '+data)
                         }),
                     ]),
     
                     make('toolbar-group',[
                         make('ui-switchbox',{
-                            status:false,
+                            value:false,
                             update : data => alert('(demo) changing to:  '+data)
                         }),
                     ]),
@@ -98,8 +98,6 @@ recordblock(
                         }),
     
                         make('ui-selectbox',{
-                            // label: "Font size",
-                            // multiple:true,
                             value: 100,
                             list: [{ label: 'Big', value: '250' }, { label: 'Medium', value: '150' }, { label: 'Small', value: '75' }],
                             update: data => alert('demo: '+data)
@@ -115,7 +113,6 @@ recordblock(
                             make('ui-color-picker',{
                                 alpha: false,
                                 value: '#454545',
-                                default: '#000000',
                                 update: data => alert('demo: '+data+'\nyou need to connect a property')
                             })
                         ]),
@@ -128,7 +125,7 @@ recordblock(
                             icon:'color-picker'
                         },[
                             make('ui-color-palette',{
-                                colors:[
+                                list:[
                                     { name: 'black', color: '#202020' },
                                     { name: 'white', color: '#ffffff' },
                                     { name: 'red', color: '#ff1212' },
@@ -147,10 +144,10 @@ recordblock(
                         },[
                             make('ui-background',{
                                 reset: () => alert('demo: \nyou need to connect a property'),
-                                setCover: () => alert('demo: \nyou need to connect a property'),
-                                setRepeat: () => alert('demo: \nyou need to connect a property'),
-                                setPosition: data => alert('demo: '+data+'\nyou need to connect a property'),
-                                setMedia: data => alert('demo:  media id:'+data.id+', media url:'+data.url+'\nyou need to connect a property'),
+                                update_Cover: () => alert('demo: \nyou need to connect a property'),
+                                update_repeat: () => alert('demo: \nyou need to connect a property'),
+                                update_position: data => alert('demo: '+data+'\nyou need to connect a property'),
+                                update_media: data => alert('demo:  media id:'+data.id+', media url:'+data.url+'\nyou need to connect a property'),
                                 iscover: true,
                                 isrepeat: false,
                                 coord: 'center center',
@@ -168,10 +165,10 @@ recordblock(
                         },[
 
                             make('ui-positioner',{
-                                setPositionType: data => alert('demo:'+data+'\nyou need to connect a property'),
-                                setPositionCoord: data => alert('demo:'+data+'\nyou need to connect a property'),
-                                actualCoord: 'relative',
-                                actualType: 'center-center',
+                                update_type: data => alert('demo:'+data+'\nyou need to connect a property'),
+                                update_coord: data => alert('demo:'+data+'\nyou need to connect a property'),
+                                coord: 'relative',
+                                type: 'center-center',
                             }),
 
                             make('===='),

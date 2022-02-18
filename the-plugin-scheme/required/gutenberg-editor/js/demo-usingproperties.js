@@ -113,7 +113,7 @@ recordblock(
 
             make('toolbar-group',[
                 make('ui-checkbox',{
-                    checked:props.attributes.css_disabling,
+                    value:props.attributes.css_disabling,
                     update: status =>{ props.setAttributes({ css_disabling:!!props.attributes.css_disabling })}
                 }),
             ]),
@@ -252,7 +252,7 @@ recordblock(
                         min:0,
                         max:100,
                         step:0.2,
-                        marks:[
+                        list:[
                             { value: 0, label: '0' },
                             { value: 25, label: '25', },
                             { value: 50, label: '50', },
@@ -272,10 +272,10 @@ recordblock(
                     },[
                         make('ui-background',{
                             reset: () => props.setAttributes({ css_bkgimage_url:'' }),
-                            setCover: () => props.setAttributes({ css_bkgimage_cover:!props.attributes.css_bkgimage_cover }),
-                            setRepeat: () => props.setAttributes({ css_bkgimage_repeat:!props.attributes.css_bkgimage_repeat }),
-                            setPosition: pos => props.setAttributes({ css_bkgimage_position: pos }),
-                            setMedia: media => props.setAttributes({ css_bkgimage_url: media.url, css_bkgimage_id:media.id }),
+                            update_cover: () => props.setAttributes({ css_bkgimage_cover:!props.attributes.css_bkgimage_cover }),
+                            update_repeat: () => props.setAttributes({ css_bkgimage_repeat:!props.attributes.css_bkgimage_repeat }),
+                            update_position: pos => props.setAttributes({ css_bkgimage_position: pos }),
+                            update_media: media => props.setAttributes({ css_bkgimage_url: media.url, css_bkgimage_id:media.id }),
                             iscover: props.attributes.css_bkgimage_cover,
                             isrepeat: props.attributes.css_bkgimage_repeat,
                             coord: props.attributes.css_bkgimage_position,
@@ -294,7 +294,7 @@ recordblock(
 
                     make('ui-checkbox',{
                         label: 'active/disable box',
-                        checked:props.attributes.css_disabling,
+                        value:props.attributes.css_disabling,
                         update: data => { alert('demo, actual status is:'+data+'\nyou need to connect a global property') }
                     }),
 
@@ -321,7 +321,7 @@ recordblock(
                     icon: props.attributes.css_bkgcolor,
                 },[
                     make('ui-color-palette',{
-                        colors: webcolors,
+                        list: webcolors,
                         update: data => { props.setAttributes({ css_bkgcolor: data}); }
                     })
                 ]),
@@ -339,9 +339,8 @@ recordblock(
                     ]),
 
                     make('ui-selectbox',{
-                        multiple:false,
                         value: props.attributes.css_textsize,
-                        options: [{ label: 'Big', value: '450' }, { label: 'Medium', value: '200' }, { label: 'Small', value: '100' }],
+                        list: [{ label: 'Big', value: '450' }, { label: 'Medium', value: '200' }, { label: 'Small', value: '100' }],
                         update: data => props.setAttributes({ css_textsize: data })
                     }),
 
@@ -350,10 +349,10 @@ recordblock(
                 make('===='),
 
                 make('ui-positioner',{
-                    setPositionType: data => {props.setAttributes({ css_position_type: data })},
-                    setPositionCoord: data => {props.setAttributes({ css_position_coord: data })},
-                    actualCoord: props.attributes.css_position_coord,
-                    actualType: props.attributes.css_position_type,
+                    update_type: data => {props.setAttributes({ css_position_type: data })},
+                    update_coord: data => {props.setAttributes({ css_position_coord: data })},
+                    coord: props.attributes.css_position_coord,
+                    type: props.attributes.css_position_type,
                 }),
 
                 make('----'),
